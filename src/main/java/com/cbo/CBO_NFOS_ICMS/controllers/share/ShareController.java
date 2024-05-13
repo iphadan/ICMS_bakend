@@ -1,6 +1,7 @@
 package com.cbo.CBO_NFOS_ICMS.controllers.share;
 
 
+import com.cbo.CBO_NFOS_ICMS.models.Finance.Finance;
 import com.cbo.CBO_NFOS_ICMS.models.share.Share;
 import com.cbo.CBO_NFOS_ICMS.services.share.ShareService;
 import org.springframework.http.HttpStatus;
@@ -21,7 +22,7 @@ public class ShareController {
     }
 
     @GetMapping("/getAll")
-    @PreAuthorize("hasAnyRole('ICMS_ADMIN')")
+    @PreAuthorize("hasAnyRole('ICMS_SHARE_OWNER', 'ICMS_ADMIN')")
     public ResponseEntity<List<Share>> getAllShare() {
         List<Share> share = shareService.findAllShare();
         return new ResponseEntity<>(share, HttpStatus.OK);
@@ -29,22 +30,23 @@ public class ShareController {
 
 
     @GetMapping("/getSize")
-    @PreAuthorize("hasAnyRole('ICMS_BRANCH_IC', 'ICMS_PROVISION')")
+    @PreAuthorize("hasAnyRole('ICMS_SHARE_IC')")
     public int  getShareSize(){
 
         return shareService.findShareSize();
     }
 
     @GetMapping("/findByOrganizationalUnitId/{id}")
-    @PreAuthorize("hasAnyRole('ICMS_BRANCH_MANAGER','ICMS_BRANCH_IC')")
+    @PreAuthorize("hasAnyRole('ICMS_SHARE_IC')")
     public ResponseEntity<List<Share>> getAllShareInSpecificOrganizationalUnit(@PathVariable("id") Long id) {
         List<Share> share;
         share = shareService.findAllShareInSpecificOrganizationalUnit(id);
         return new ResponseEntity<>(share, HttpStatus.OK);
     }
 
+
     @GetMapping("/findBySubProcessId/{id}")
-    @PreAuthorize("hasAnyRole('ICMS_DISTRICT_IC','ICMS_DISTRICT_DIRECTOR')")
+    @PreAuthorize("hasAnyRole('ICMS_SHARE_IC')")
     public ResponseEntity<List<Share>> getAllDailyActivityGapInSpecificSubProcess(@PathVariable("id") Long subProcessId) {
         List<Share> Share;
         Share = shareService.findAllShareInSpecificSubProcess(subProcessId);
@@ -59,7 +61,7 @@ public class ShareController {
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasRole('ICMS_BRANCH_IC')")
+    @PreAuthorize("hasRole('ICMS_SHARE_IC')")
     public ResponseEntity<Share> addShare
             (@RequestBody Share share) {
         String caseId = share.getCaseId();
@@ -90,7 +92,7 @@ public class ShareController {
         return String.format("%04d/%02d/%02d/%04d", caseNumber, day, month, year);
     }
     @PutMapping("/update")
-    @PreAuthorize("hasRole('ICMS_BRANCH_IC')")
+    @PreAuthorize("hasRole('ICMS_SHARE_IC')")
     public ResponseEntity<Share> updateShare
             (@RequestBody Share share) {
         Share updateShare = shareService.updateShare(share);
@@ -98,7 +100,7 @@ public class ShareController {
     }
 
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasRole('ICMS_BRANCH_IC')")
+    @PreAuthorize("hasRole('ICMS_SHARE_OWNER', 'ICMS_ADMIN')")
 
     public ResponseEntity<?> deleteShare(@PathVariable("id") Long id) {
         shareService.deleteShare(id);

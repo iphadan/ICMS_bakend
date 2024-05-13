@@ -5,6 +5,7 @@ import com.cbo.CBO_NFOS_ICMS.models.AllIrregularity;
 import com.cbo.CBO_NFOS_ICMS.models.AllSubCategory;
 import com.cbo.CBO_NFOS_ICMS.models.UserAndEmployee.Branch;
 import com.cbo.CBO_NFOS_ICMS.models.UserAndEmployee.SubProcess;
+import com.cbo.CBO_NFOS_ICMS.models.UserAndEmployee.Team;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -45,6 +46,9 @@ public class Share {
     @ManyToOne
     @JoinColumn(name = "share_status_id")
     private ShareStatus shareStatus;
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
 
     @ManyToOne
     @JoinColumn(name = "branch_id")

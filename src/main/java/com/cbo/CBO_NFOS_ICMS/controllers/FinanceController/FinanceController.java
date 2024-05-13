@@ -28,7 +28,7 @@ public class FinanceController {
     }
 
     @GetMapping("/getAll")
-    @PreAuthorize("hasAnyRole('ICMS_FINANCE_OWNER')")
+    @PreAuthorize("hasAnyRole('ICMS_FINANCE_OWNER', 'ICMS_ADMIN')")
     public ResponseEntity<List<Finance>> getFinance() {
         List<Finance> Finance = financeService.findAllFinance();
         return new ResponseEntity<>(Finance, HttpStatus.OK);
@@ -51,7 +51,6 @@ public class FinanceController {
             caseId = incrementCaseId(caseId);
         }
         finance.setCaseId(caseId);
-        System.out.println(caseId);
         Finance newFinance = financeService.addIFB(finance);
         return new ResponseEntity<>(newFinance, HttpStatus.CREATED);
     }

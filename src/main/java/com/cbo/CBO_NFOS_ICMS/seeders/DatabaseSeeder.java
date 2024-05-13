@@ -15,6 +15,7 @@ import com.cbo.CBO_NFOS_ICMS.models.IFB.ProductType;
 import com.cbo.CBO_NFOS_ICMS.models.IFR.CaseStatus;
 import com.cbo.CBO_NFOS_ICMS.models.IFR.FraudType;
 import com.cbo.CBO_NFOS_ICMS.models.SubModule;
+import com.cbo.CBO_NFOS_ICMS.models.share.ShareStatus;
 import com.cbo.CBO_NFOS_ICMS.repositories.AllCategoryRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.AllIrregularityRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.AllSubCategoryRepository;
@@ -31,6 +32,7 @@ import com.cbo.CBO_NFOS_ICMS.repositories.IFBRepository.ProductTypeRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.IFRRepository.CaseStatusRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.IFRRepository.FraudTypeRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.SubModuleRepository;
+import com.cbo.CBO_NFOS_ICMS.repositories.shareRepository.ShareStatusRepository;
 import com.cbo.CBO_NFOS_ICMS.services.AllCategoryService;
 import com.cbo.CBO_NFOS_ICMS.services.AllSubCategoryService;
 import com.cbo.CBO_NFOS_ICMS.services.UserAndEmployeeService.SubModuleService;
@@ -56,6 +58,9 @@ public class DatabaseSeeder {
     private CaseStatusRepository caseStatusRepository;
     private ActivityStatusRepository activityStatusRepository;
     private FinanceStatusRepository financeStatusRepository;
+
+    private ShareStatusRepository shareStatusRepository;
+
     private AllCategoryRepository allCategoryRepository;
     private FraudTypeRepository fraudTypeRepository;
     private SuspectedFraudsterProfessionRepository suspectedFraudsterProfessionRepository;
@@ -90,11 +95,14 @@ public class DatabaseSeeder {
             SubModuleService subModuleService,
             AllCategoryService allCategoryService,
             AllSubCategoryService allSubCategoryService,
-            AllIrregularityRepository allIrregularityRepository
+            AllIrregularityRepository allIrregularityRepository,
+            ShareStatusRepository shareStatusRepository
+
     ) {
         this.jdbcTemplate = jdbcTemplate;
         this.allSubCategoryRepository = allSubCategoryRepository;
         this.collateralTypeRepository = collateralTypeRepository;
+        this.shareStatusRepository= shareStatusRepository;
         this.productTypeRepository = productTypeRepository;
         this.insuranceCoverageTypeRepository = insuranceCoverageTypeRepository;
         this.chequeTypeRepository = chequeTypeRepository;
@@ -180,7 +188,8 @@ public class DatabaseSeeder {
         seedFinanciesStatusTable("Open");
         seedFinanciesStatusTable("Closed");
 
-
+        seedShareStatusTable("Open");
+        seedShareStatusTable("Closed");
 
         //OTHER
         seedSuspectedFraudsterProfessionsTable("Director");
@@ -1007,6 +1016,18 @@ public class DatabaseSeeder {
             //logger.info("Activities Status Seeding Not Required");
         }
     }
+    @Transactional
+    public void seedShareStatusTable(String name) {
+        String sql = "SELECT name FROM sharemodule_status shareS WHERE shareS.name = ? LIMIT 1";
+        List<ShareStatus> as = jdbcTemplate.query(sql, new Object[]{name}, (resultSet, rowNum) -> new ShareStatus(resultSet.getString("name")));
+        if (as.isEmpty()) {
+            ShareStatus shareStatus = new ShareStatus(name);
+            shareStatusRepository.save(shareStatus);
+        } else {
+            //logger.info("Activities Status Seeding Not Required");
+        }
+    }
+
 
 }
 

@@ -1,6 +1,7 @@
 package com.cbo.CBO_NFOS_ICMS.repositories.shareRepository;
 
 import com.cbo.CBO_NFOS_ICMS.models.DACGM.DailyActivityGapControl;
+import com.cbo.CBO_NFOS_ICMS.models.Finance.Finance;
 import com.cbo.CBO_NFOS_ICMS.models.share.Share;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -14,6 +15,7 @@ public interface ShareRepository extends JpaRepository<Share, Long> {
 
     List<Share> findShareByBranchId(Long id);
     List<Share> findShareBySubProcessId(Long subProcessId);
+    List<Share> findShareByTeamId(Long id);
 
     boolean existsByCaseId(String caseId);
 }

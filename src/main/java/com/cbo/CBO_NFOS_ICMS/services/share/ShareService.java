@@ -70,7 +70,7 @@ public class ShareService {
     }
 
     public List<Share> findAllShareInSpecificOrganizationalUnit(Long id) {
-        return shareRepository.findShareByBranchId(id);
+        return shareRepository.findShareByTeamId(id);
     }
 
     public List<Share> findAllShareInSpecificSubProcess(Long subProcessId) {

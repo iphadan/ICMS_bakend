@@ -9,6 +9,7 @@ import javax.persistence.*;
 
 @NoArgsConstructor
 @Entity
+@Table(name = "sharemodule_status")
 public class ShareStatus {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

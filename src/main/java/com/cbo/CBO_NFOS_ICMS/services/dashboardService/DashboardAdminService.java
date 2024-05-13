@@ -125,11 +125,6 @@ public class DashboardAdminService {
         dashboardDTO.setNonFinancialChangePercentageForidentified(nonFinancialPercentageFromLastIdentified);
 
 
-//        dashboardDTO.setNewCasesToday(newCasesToday);
-//        dashboardDTO.setDueIn30Days(dueIn30Days);
-//        dashboardDTO.setDueCases(dueCases);
-//        dashboardDTO.setOutstandingEscalatedCases(outstandingEscalatedCases);
-
         return dashboardDTO;
     }
 
