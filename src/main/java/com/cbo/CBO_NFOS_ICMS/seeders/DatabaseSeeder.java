@@ -81,7 +81,6 @@ public class DatabaseSeeder {
             ProductTypeRepository productTypeRepository,
             TradeRepository tradeRepository,
             AllTradeTypeRepository tradeTypeRepository,
-
             StatusRepository statusRepository,
             IfbStatusRepository ifbStatusRepository,
             InsuranceCoverageTypeRepository insuranceCoverageTypeRepository,
@@ -126,10 +125,8 @@ public class DatabaseSeeder {
         this.allSubCategoryService = allSubCategoryService;
         this.allIrregularityRepository = allIrregularityRepository;
     }
-
     @PostConstruct
     public void seed() {
-
         // TYPES
         seedCollateralType("Premises and Buildings/Houses");
         seedCollateralType("Motor Vehicles");
@@ -181,8 +178,6 @@ public class DatabaseSeeder {
         seedFraudTypesTable("Cheating");
         seedFraudTypesTable("Forgery");
         seedFraudTypesTable("Other");
-
-
         //STATUS
         seedCasesStatusTable("Outstanding");
         seedCasesStatusTable("Closed");
@@ -194,8 +189,6 @@ public class DatabaseSeeder {
         seedFinanciesStatusTable("Open");
         seedFinanciesStatusTable("Closed");
 
-
-
         //OTHER
         seedSuspectedFraudsterProfessionsTable("Director");
         seedSuspectedFraudsterProfessionsTable("Employee");
@@ -205,7 +198,6 @@ public class DatabaseSeeder {
         seedActionsTakenTable("All debit transactions blocked.");
         seedActionsTakenTable("All debit transactions blocked, and a fine of 3% of the cheque amount, but not exceeding Birr 25,000, was collected.");
         seedActionsTakenTable("All debit transactions blocked, and a fine of 5% of the cheque amount, but not exceeding Birr 50,000, was collected.");
-
 
         //SUB-MODULE, ALL-CATEGORY, ALL-SUB-CATEGORY, ALL-IRREGULARITY
 
@@ -289,7 +281,6 @@ public class DatabaseSeeder {
         seedAllCategoriesTable("Correspondent Accounts Reconciliation", findSubModuleByCode("TSIPM"));
         SeedAllTradeTypeTable("Financial", findSubModuleByCode("TSIPM"));
         SeedAllTradeTypeTable("Non-Financial", findSubModuleByCode("TSIPM"));
-
 
         this.allCategories = this.allCategoryService.findAllAllCategory();
         seedAllSubCategoriesTable("Financial", findAllCategoryByName("Cash Management"));
