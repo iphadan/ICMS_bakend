@@ -2,6 +2,7 @@ package com.cbo.CBO_NFOS_ICMS.repositories.FinanceRepository;
 
 import com.cbo.CBO_NFOS_ICMS.models.Finance.Finance;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,4 +18,7 @@ public interface FinanceRepository extends JpaRepository<Finance, Long> {
     boolean existsByCaseId(String caseId);
 
     List<Finance> findFinanceByTeamId(Long id);
+
+    @Query(value = "SELECT MAX(id) FROM Finance")
+    Long findLastAddedDACGMId();
 }

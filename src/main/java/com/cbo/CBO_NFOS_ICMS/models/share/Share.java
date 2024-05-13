@@ -1,6 +1,8 @@
 package com.cbo.CBO_NFOS_ICMS.models.share;
 
+import com.cbo.CBO_NFOS_ICMS.models.AllCategory;
 import com.cbo.CBO_NFOS_ICMS.models.AllIrregularity;
+import com.cbo.CBO_NFOS_ICMS.models.AllSubCategory;
 import com.cbo.CBO_NFOS_ICMS.models.UserAndEmployee.Branch;
 import com.cbo.CBO_NFOS_ICMS.models.UserAndEmployee.SubProcess;
 import lombok.Data;
@@ -17,26 +19,33 @@ public class Share {
     @Column(updatable = false)
     private Long id;
     @Column(length = 64)
-    private String date;
+    private String shareDate;
     @Column(length = 64)
     private String caseId;
-    @Column(length = 64)
-    private String amountInvolved;
-    @Column(length = 64)
-    private String responsiblePerson;
-    @Column(length = 64)
+    @ManyToOne
+    @JoinColumn(name = "all_category_id")
+    private AllCategory allCategory;
+    @ManyToOne
+    @JoinColumn(name = "all_sub_category_id")
+    private AllSubCategory allSubCategory;
+    @Column( length = 64)
     private String shareNumber;
     @Column(length = 64)
     private String shareHoldersName;
-
-    @ManyToOne
-    @JoinColumn(name = "share_status_id")
-    private ShareStatus shareStatus;
     @ManyToOne
     @JoinColumn(name = "irregularity_id")
     private AllIrregularity irregularity;
     @Column(length = 64)
     private String otherIrregularity;
+    @Column(length = 64)
+    private String amountInvolved;
+    @Column(length = 64)
+    private String responsiblePerson;
+
+    @ManyToOne
+    @JoinColumn(name = "share_status_id")
+    private ShareStatus shareStatus;
+
     @ManyToOne
     @JoinColumn(name = "branch_id")
     private Branch branch;

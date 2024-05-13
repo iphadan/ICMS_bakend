@@ -251,6 +251,22 @@ public class DatabaseSeeder {
         seedAllCategoriesTable("Tax", findSubModuleByCode("FPIC"));
         seedAllCategoriesTable("Reconciliation", findSubModuleByCode("FPIC"));
 
+        seedAllCategoriesTable("A Deceased shareholder (individual)", findSubModuleByCode("SMPIC"));
+        seedAllCategoriesTable("Capital Contribution In-kind", findSubModuleByCode("SMPIC"));
+        seedAllCategoriesTable("Dividend Payment", findSubModuleByCode("SMPIC"));
+        seedAllCategoriesTable("Floating of New Shares", findSubModuleByCode("SMPIC"));
+        seedAllCategoriesTable("Joint shareholding", findSubModuleByCode("SMPIC"));
+        seedAllCategoriesTable("Limitation on Share Acquisition", findSubModuleByCode("SMPIC"));
+        seedAllCategoriesTable("Loss of share certificates", findSubModuleByCode("SMPIC"));
+        seedAllCategoriesTable("Period for Deposit of proxy", findSubModuleByCode("SMPIC"));
+        seedAllCategoriesTable("Preparation of Share Certificate", findSubModuleByCode("SMPIC"));
+        seedAllCategoriesTable("Qualification shares", findSubModuleByCode("SMPIC"));
+        seedAllCategoriesTable("Share and Subscription Right Transfer", findSubModuleByCode("SMPIC"));
+        seedAllCategoriesTable("Share for Minors", findSubModuleByCode("SMPIC"));
+        seedAllCategoriesTable("Share Registration", findSubModuleByCode("SMPIC"));
+        seedAllCategoriesTable("Share Subscription", findSubModuleByCode("SMPIC"));
+        seedAllCategoriesTable("Other ", findSubModuleByCode("SMPIC"));
+
 
 
         this.allCategories = this.allCategoryService.findAllAllCategory();
@@ -332,6 +348,52 @@ public class DatabaseSeeder {
 
         seedAllSubCategoriesTable("Financial", findAllCategoryByName("Reconciliation"));
         seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Reconciliation"));
+
+        //Share
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("A Deceased shareholder (individual)"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("A Deceased shareholder (individual)"));
+
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Capital Contribution In-kind"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Capital Contribution In-kind"));
+
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Dividend Payment"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Dividend Payment"));
+
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Floating of New Shares"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Floating of New Shares"));
+
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Joint shareholding"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Joint shareholding"));
+
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Limitation on Share Acquisition"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Limitation on Share Acquisition"));
+
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Loss of share certificates"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Loss of share certificates"));
+
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Period for Deposit of proxy"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Period for Deposit of proxy"));
+
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Preparation of Share Certificate"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Preparation of Share Certificate"));
+
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Qualification shares"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Qualification shares"));
+
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Share and Subscription Right Transfer"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Share and Subscription Right Transfer"));
+
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Share for Minors"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Share for Minors"));
+
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Share Registration"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Share Registration"));
+
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Share Subscription"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Share Subscription"));
+
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Other"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Other"));
 
 
 
@@ -496,6 +558,225 @@ public class DatabaseSeeder {
         seedAllIrregularitiesTable("Daily forex exchange rate is not displayed", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Forex Trading"));
         seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Forex Trading"));
 
+        seedAllIrregularitiesTable("Shares transfer made without collecting the a completed share transfer form signed by the heir(s) of the deceased person not collected.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "A Deceased shareholder (individual)"));
+        seedAllIrregularitiesTable("Shares transfer made without collecting the a completed share transfer form signed by the heir(s) of the deceased person not collected.", findAllSubCategoryByNameAndCategoryName("Financial", "A Deceased shareholder (individual)"));
+
+        seedAllIrregularitiesTable("Shares transfer made without collecting the court documents showing the entitlement of the heir(s) of the shares", findAllSubCategoryByNameAndCategoryName("Non-Financial", "A Deceased shareholder (individual)"));
+        seedAllIrregularitiesTable("Shares transfer made without collecting the court documents showing the entitlement of the heir(s) of the shares", findAllSubCategoryByNameAndCategoryName("Financial", "A Deceased shareholder (individual)"));
+
+        seedAllIrregularitiesTable("Shares transfer made without collecting the instruction of the transfer with full particulars of the transferee not collected.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "A Deceased shareholder (individual)"));
+        seedAllIrregularitiesTable("Shares transfer made without collecting the instruction of the transfer with full particulars of the transferee not collected.", findAllSubCategoryByNameAndCategoryName("Financial", "A Deceased shareholder (individual)"));
+
+        seedAllIrregularitiesTable("Shares transfer made without collecting the share certificates and any other relevant document", findAllSubCategoryByNameAndCategoryName("Non-Financial", "A Deceased shareholder (individual)"));
+        seedAllIrregularitiesTable("Shares transfer made without collecting the share certificates and any other relevant document", findAllSubCategoryByNameAndCategoryName("Financial", "A Deceased shareholder (individual)"));
+
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "A Deceased shareholder (individual)"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "A Deceased shareholder (individual)"));
+
+        seedAllIrregularitiesTable("Contribution in kind is not valued by professional valuators acceptable to the National Bank of Ethiopia.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Capital Contribution In-kind"));
+        seedAllIrregularitiesTable("Contribution in kind is not valued by professional valuators acceptable to the National Bank of Ethiopia.", findAllSubCategoryByNameAndCategoryName("Financial", "Capital Contribution In-kind"));
+
+        seedAllIrregularitiesTable("Contribution in kind is considered for the purposes of fulfilling the minimum required capital of the bank.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Capital Contribution In-kind"));
+        seedAllIrregularitiesTable("Contribution in kind is considered for the purposes of fulfilling the minimum required capital of the bank.", findAllSubCategoryByNameAndCategoryName("Financial", "Capital Contribution In-kind"));
+
+        seedAllIrregularitiesTable("Contributions in kind exceed 25% of paid-up capital more than minimum required capital.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Capital Contribution In-kind"));
+        seedAllIrregularitiesTable("Contributions in kind exceed 25% of paid-up capital more than minimum required capital.", findAllSubCategoryByNameAndCategoryName("Financial", "Capital Contribution In-kind"));
+
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Capital Contribution In-kind"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Capital Contribution In-kind"));
+
+        seedAllIrregularitiesTable("Shareholder didn’t fill the form prepared for payment of dividends.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Dividend Payment"));
+        seedAllIrregularitiesTable("Shareholder didn’t fill the form prepared for payment of dividends.", findAllSubCategoryByNameAndCategoryName("Financial", "Dividend Payment"));
+
+        seedAllIrregularitiesTable("Verification and identification of shareholders is not conducted during divided payment to shareholders", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Dividend Payment"));
+        seedAllIrregularitiesTable("Verification and identification of shareholders is not conducted during divided payment to shareholders", findAllSubCategoryByNameAndCategoryName("Financial", "Dividend Payment"));
+
+        seedAllIrregularitiesTable("The dividend payable account doesn't seem to be balanced with the updated unpaid list.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Dividend Payment"));
+        seedAllIrregularitiesTable("The dividend payable account doesn't seem to be balanced with the updated unpaid list.", findAllSubCategoryByNameAndCategoryName("Financial", "Dividend Payment"));
+
+        seedAllIrregularitiesTable("Date of payment and amount paid is not considered while the bank's dividend is allocated.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Dividend Payment"));
+        seedAllIrregularitiesTable("Date of payment and amount paid is not considered while the bank's dividend is allocated.", findAllSubCategoryByNameAndCategoryName("Financial", "Dividend Payment"));
+
+        seedAllIrregularitiesTable("Payment of dividend is affected before deduction of taxes, the legal reserve, other reserves, provisions, previous losses, and other approved deductions after audit by External Auditors and final approval by the Annual general meeting", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Dividend Payment"));
+        seedAllIrregularitiesTable("Payment of dividend is affected before deduction of taxes, the legal reserve, other reserves, provisions, previous losses, and other approved deductions after audit by External Auditors and final approval by the Annual general meeting", findAllSubCategoryByNameAndCategoryName("Financial", "Dividend Payment"));
+
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Dividend Payment"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Dividend Payment"));
+
+        seedAllIrregularitiesTable("New share have been issued without collecting previously issued shares fully.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Floating of New Shares"));
+        seedAllIrregularitiesTable("New share have been issued without collecting previously issued shares fully.", findAllSubCategoryByNameAndCategoryName("Financial", "Floating of New Shares"));
+
+        seedAllIrregularitiesTable("Proposal is not approved by the general assembly for issuance of new share.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Floating of New Shares"));
+        seedAllIrregularitiesTable("Proposal is not approved by the general assembly for issuance of new share.", findAllSubCategoryByNameAndCategoryName("Financial", "Floating of New Shares"));
+
+        seedAllIrregularitiesTable("Issued shares are not offered for subscriptions first to the shareholders of the bank and or as per the decision of the shareholders assembly.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Floating of New Shares"));
+        seedAllIrregularitiesTable("Issued shares are not offered for subscriptions first to the shareholders of the bank and or as per the decision of the shareholders assembly.", findAllSubCategoryByNameAndCategoryName("Financial", "Floating of New Shares"));
+
+        seedAllIrregularitiesTable("Issued shares are not offered to other existing share holder as per the decision of the general assembly if the privileged shareholders fail to use the opportunity within a given period.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Floating of New Shares"));
+        seedAllIrregularitiesTable("Issued shares are not offered to other existing share holder as per the decision of the general assembly if the privileged shareholders fail to use the opportunity within a given period.", findAllSubCategoryByNameAndCategoryName("Financial", "Floating of New Shares"));
+
+        seedAllIrregularitiesTable("The remainder shares are not managed based on additional share request made by the shareholder and allotted based on their shareholdings.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Floating of New Shares"));
+        seedAllIrregularitiesTable("The remainder shares are not managed based on additional share request made by the shareholder and allotted based on their shareholdings.", findAllSubCategoryByNameAndCategoryName("Financial", "Floating of New Shares"));
+
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Floating of New Shares"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Floating of New Shares"));
+
+        seedAllIrregularitiesTable("Representative is not appointed for jointly acquired share.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Joint shareholding"));
+        seedAllIrregularitiesTable("Representative is not appointed for jointly acquired share.", findAllSubCategoryByNameAndCategoryName("Financial", "Joint shareholding"));
+
+        seedAllIrregularitiesTable("The right in the share have been granted to a person other than the survivor(s) and the heir(s) of the deceased", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Joint shareholding"));
+        seedAllIrregularitiesTable("The right in the share have been granted to a person other than the survivor(s) and the heir(s) of the deceased", findAllSubCategoryByNameAndCategoryName("Financial", "Joint shareholding"));
+
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Joint shareholding"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Joint shareholding"));
+
+        seedAllIrregularitiesTable("Influential shareholder of other bank acquires the bank's shares.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Limitation on Share Acquisition"));
+        seedAllIrregularitiesTable("Influential shareholder of other bank acquires the bank's shares.", findAllSubCategoryByNameAndCategoryName("Financial", "Limitation on Share Acquisition"));
+
+        seedAllIrregularitiesTable("Minimum and the maximum shareholding limits is not maintained", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Limitation on Share Acquisition"));
+        seedAllIrregularitiesTable("Minimum and the maximum shareholding limits is not maintained", findAllSubCategoryByNameAndCategoryName("Financial", "Limitation on Share Acquisition"));
+
+        seedAllIrregularitiesTable("Share was bought using bank loans and advances.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Limitation on Share Acquisition"));
+        seedAllIrregularitiesTable("Share was bought using bank loans and advances.", findAllSubCategoryByNameAndCategoryName("Financial", "Limitation on Share Acquisition"));
+
+        seedAllIrregularitiesTable("Shareholder acquire more than 2% of the subscribed capital of the bank without getting approval from NBE.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Limitation on Share Acquisition"));
+        seedAllIrregularitiesTable("Shareholder acquire more than 2% of the subscribed capital of the bank without getting approval from NBE.", findAllSubCategoryByNameAndCategoryName("Financial", "Limitation on Share Acquisition"));
+
+        seedAllIrregularitiesTable("Shares is sold for foreign nationals or organizations fully or partially owned by foreign nationals.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Limitation on Share Acquisition"));
+        seedAllIrregularitiesTable("Shares is sold for foreign nationals or organizations fully or partially owned by foreign nationals.", findAllSubCategoryByNameAndCategoryName("Financial", "Limitation on Share Acquisition"));
+
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Limitation on Share Acquisition"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Limitation on Share Acquisition"));
+
+        seedAllIrregularitiesTable("Loss of share certificate is not reported to the bank immediately.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Loss of share certificates"));
+        seedAllIrregularitiesTable("Loss of share certificate is not reported to the bank immediately.", findAllSubCategoryByNameAndCategoryName("Financial", "Loss of share certificates"));
+
+        seedAllIrregularitiesTable("Duplicate share certificate is issued without publishing a notice in a widely circulated newspaper and submit the newspaper to the bank.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Loss of share certificates"));
+        seedAllIrregularitiesTable("Duplicate share certificate is issued without publishing a notice in a widely circulated newspaper and submit the newspaper to the bank.", findAllSubCategoryByNameAndCategoryName("Financial", "Loss of share certificates"));
+
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Loss of share certificates"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Loss of share certificates"));
+
+        seedAllIrregularitiesTable("Proxy is not deposited with Head office of the Bank before 3(three) full days before the date of a meeting.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Period for Deposit of proxy"));
+        seedAllIrregularitiesTable("Proxy is not deposited with Head office of the Bank before 3(three) full days before the date of a meeting.", findAllSubCategoryByNameAndCategoryName("Financial", "Period for Deposit of proxy"));
+
+        seedAllIrregularitiesTable("Forms of proxy, the place where and the time within which they are deposited are not mentioned in the call notice of a meeting of shareholders.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Period for Deposit of proxy"));
+        seedAllIrregularitiesTable("Forms of proxy, the place where and the time within which they are deposited are not mentioned in the call notice of a meeting of shareholders.", findAllSubCategoryByNameAndCategoryName("Financial", "Period for Deposit of proxy"));
+
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Period for Deposit of proxy"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Period for Deposit of proxy"));
+
+        seedAllIrregularitiesTable("Public notice isn’t served for the general information of the members to collect share certificates", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Preparation of Share Certificate"));
+        seedAllIrregularitiesTable("Public notice isn’t served for the general information of the members to collect share certificates", findAllSubCategoryByNameAndCategoryName("Financial", "Preparation of Share Certificate"));
+
+        seedAllIrregularitiesTable("Share certificate isn’t timely issued to shareholders", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Preparation of Share Certificate"));
+        seedAllIrregularitiesTable("Share certificate isn’t timely issued to shareholders", findAllSubCategoryByNameAndCategoryName("Financial", "Preparation of Share Certificate"));
+
+        seedAllIrregularitiesTable("Share certificate register is not maintained in both hard and soft copy where void, delivered and non-delivered share certificates fully registered.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Preparation of Share Certificate"));
+        seedAllIrregularitiesTable("Share certificate register is not maintained in both hard and soft copy where void, delivered and non-delivered share certificates fully registered.", findAllSubCategoryByNameAndCategoryName("Financial", "Preparation of Share Certificate"));
+
+        seedAllIrregularitiesTable("Share-certificate is not prepared after full value of the subscribed shares deposits made.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Preparation of Share Certificate"));
+        seedAllIrregularitiesTable("Share-certificate is not prepared after full value of the subscribed shares deposits made.", findAllSubCategoryByNameAndCategoryName("Financial", "Preparation of Share Certificate"));
+
+        seedAllIrregularitiesTable("The share certificate is incomplete as it is missing one or more important details such as the name of the shareholders, ID, certificate number, serial number, and the amount of shares.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Preparation of Share Certificate"));
+        seedAllIrregularitiesTable("The share certificate is incomplete as it is missing one or more important details such as the name of the shareholders, ID, certificate number, serial number, and the amount of shares.", findAllSubCategoryByNameAndCategoryName("Financial", "Preparation of Share Certificate"));
+
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Preparation of Share Certificate"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Preparation of Share Certificate"));
+
+        seedAllIrregularitiesTable("Directors of the Bank didn’t deposit a qualification share with the bank as security for the proper and correct fulfilment of their duties and functions.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Qualification shares"));
+        seedAllIrregularitiesTable("Directors of the Bank didn’t deposit a qualification share with the bank as security for the proper and correct fulfilment of their duties and functions.", findAllSubCategoryByNameAndCategoryName("Financial", "Qualification shares"));
+
+        seedAllIrregularitiesTable("Qualification shares handed back to owners while they are on duty.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Qualification shares"));
+        seedAllIrregularitiesTable("Qualification shares handed back to owners while they are on duty.", findAllSubCategoryByNameAndCategoryName("Financial", "Qualification shares"));
+
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Qualification shares"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Qualification shares"));
+
+        seedAllIrregularitiesTable("The transferor is not registered share both on the share system and register book before initiation of share transfers.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share and Subscription Right Transfer"));
+        seedAllIrregularitiesTable("The transferor is not registered share both on the share system and register book before initiation of share transfers.", findAllSubCategoryByNameAndCategoryName("Financial", "Share and Subscription Right Transfer"));
+
+        seedAllIrregularitiesTable("Transfer has made the user influential.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share and Subscription Right Transfer"));
+        seedAllIrregularitiesTable("Transfer has made the user influential.", findAllSubCategoryByNameAndCategoryName("Financial", "Share and Subscription Right Transfer"));
+
+        seedAllIrregularitiesTable("Proper formats of share and subscription right transfer dedicated for this operation are not used and signed by both parties.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share and Subscription Right Transfer"));
+        seedAllIrregularitiesTable("Proper formats of share and subscription right transfer dedicated for this operation are not used and signed by both parties.", findAllSubCategoryByNameAndCategoryName("Financial", "Share and Subscription Right Transfer"));
+
+        seedAllIrregularitiesTable("Proper KYC document id not collected.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share and Subscription Right Transfer"));
+        seedAllIrregularitiesTable("Proper KYC document id not collected.", findAllSubCategoryByNameAndCategoryName("Financial", "Share and Subscription Right Transfer"));
+
+        seedAllIrregularitiesTable("The share certificate which consists of the transferred shares is not collected and bear 'Void' Across the face of the certificates.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share and Subscription Right Transfer"));
+        seedAllIrregularitiesTable("The share certificate which consists of the transferred shares is not collected and bear 'Void' Across the face of the certificates.", findAllSubCategoryByNameAndCategoryName("Financial", "Share and Subscription Right Transfer"));
+
+        seedAllIrregularitiesTable("Revenue stamps are not affixed on the agreement at the cost of the transferee/buyer.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share and Subscription Right Transfer"));
+        seedAllIrregularitiesTable("Revenue stamps are not affixed on the agreement at the cost of the transferee/buyer.", findAllSubCategoryByNameAndCategoryName("Financial", "Share and Subscription Right Transfer"));
+
+        seedAllIrregularitiesTable("Proper approval is not sought from the finance director for the transfer,", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share and Subscription Right Transfer"));
+        seedAllIrregularitiesTable("Proper approval is not sought from the finance director for the transfer,", findAllSubCategoryByNameAndCategoryName("Financial", "Share and Subscription Right Transfer"));
+
+        seedAllIrregularitiesTable("Capital gain tax is not collected.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share and Subscription Right Transfer"));
+        seedAllIrregularitiesTable("Capital gain tax is not collected.", findAllSubCategoryByNameAndCategoryName("Financial", "Share and Subscription Right Transfer"));
+
+        seedAllIrregularitiesTable("Fees are not collected as per the 'Terms and tariff' Of the bank.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share and Subscription Right Transfer"));
+        seedAllIrregularitiesTable("Fees are not collected as per the 'Terms and tariff' Of the bank.", findAllSubCategoryByNameAndCategoryName("Financial", "Share and Subscription Right Transfer"));
+
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share and Subscription Right Transfer"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Share and Subscription Right Transfer"));
+
+        seedAllIrregularitiesTable("Custodian acts on behalf of the minor after the minor reaches the age of majority.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share for Minors"));
+        seedAllIrregularitiesTable("Custodian acts on behalf of the minor after the minor reaches the age of majority.", findAllSubCategoryByNameAndCategoryName("Financial", "Share for Minors"));
+
+        seedAllIrregularitiesTable("The minor is not named in the share certificate", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share for Minors"));
+        seedAllIrregularitiesTable("The minor is not named in the share certificate", findAllSubCategoryByNameAndCategoryName("Financial", "Share for Minors"));
+
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share for Minors"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Share for Minors"));
+
+        seedAllIrregularitiesTable("Register of shareholders maintained by the bank didn't contain the name and address of shareholders, the number of shares, the amount paid up and the date of entry of shareholder in the register.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share Registration"));
+        seedAllIrregularitiesTable("Register of shareholders maintained by the bank didn't contain the name and address of shareholders, the number of shares, the amount paid up and the date of entry of shareholder in the register.", findAllSubCategoryByNameAndCategoryName("Financial", "Share Registration"));
+
+        seedAllIrregularitiesTable("Shares register is not open to the public without charge at the head office of the bank.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share Registration"));
+        seedAllIrregularitiesTable("Shares register is not open to the public without charge at the head office of the bank.", findAllSubCategoryByNameAndCategoryName("Financial", "Share Registration"));
+
+        seedAllIrregularitiesTable("Re registration of shares is not done in line with the requirement of the commercial code.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share Registration"));
+        seedAllIrregularitiesTable("Re registration of shares is not done in line with the requirement of the commercial code.", findAllSubCategoryByNameAndCategoryName("Financial", "Share Registration"));
+
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share Registration"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Share Registration"));
+
+        seedAllIrregularitiesTable("Confirm signed forms are not collected from the shareholder.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share Subscription"));
+        seedAllIrregularitiesTable("Confirm signed forms are not collected from the shareholder.", findAllSubCategoryByNameAndCategoryName("Financial", "Share Subscription"));
+
+        seedAllIrregularitiesTable("Share transfer process is not conducted as per the relevant laws and regulations.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share Subscription"));
+        seedAllIrregularitiesTable("Share transfer process is not conducted as per the relevant laws and regulations.", findAllSubCategoryByNameAndCategoryName("Financial", "Share Subscription"));
+
+        seedAllIrregularitiesTable("Relevant fees and service charge are not collected up on issuance shares.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share Subscription"));
+        seedAllIrregularitiesTable("Relevant fees and service charge are not collected up on issuance shares.", findAllSubCategoryByNameAndCategoryName("Financial", "Share Subscription"));
+
+        seedAllIrregularitiesTable("Approved dividends are not properly allocated to the shareholder.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share Subscription"));
+        seedAllIrregularitiesTable("Approved dividends are not properly allocated to the shareholder.", findAllSubCategoryByNameAndCategoryName("Financial", "Share Subscription"));
+
+        seedAllIrregularitiesTable("At least 25% of share subscriptions is not paid to fulfill the legal requirement as per the commercial code of ethiopia.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share Subscription"));
+        seedAllIrregularitiesTable("At least 25% of share subscriptions is not paid to fulfill the legal requirement as per the commercial code of ethiopia.", findAllSubCategoryByNameAndCategoryName("Financial", "Share Subscription"));
+
+        seedAllIrregularitiesTable("Branches didn't credit the amount collected to share sold payable account", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share Subscription"));
+        seedAllIrregularitiesTable("Branches didn't credit the amount collected to share sold payable account", findAllSubCategoryByNameAndCategoryName("Financial", "Share Subscription"));
+
+        seedAllIrregularitiesTable("Relevant KYC documents are not collected and documented accordingly.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share Subscription"));
+        seedAllIrregularitiesTable("Relevant KYC documents are not collected and documented accordingly.", findAllSubCategoryByNameAndCategoryName("Financial", "Share Subscription"));
+
+        seedAllIrregularitiesTable("All relevant data of the shareholder is not inserted into the share management system.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share Subscription"));
+        seedAllIrregularitiesTable("All relevant data of the shareholder is not inserted into the share management system.", findAllSubCategoryByNameAndCategoryName("Financial", "Share Subscription"));
+
+        seedAllIrregularitiesTable("The transaction is not executed correctly.", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share Subscription"));
+        seedAllIrregularitiesTable("The transaction is not executed correctly.", findAllSubCategoryByNameAndCategoryName("Financial", "Share Subscription"));
+
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Share Subscription"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Share Subscription"));
+
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Other"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Other"));
+
 
     }
 
@@ -535,19 +816,6 @@ public class DatabaseSeeder {
         }
     }
 
-    //    @Transactional
-//    public void seedStatus(String name) {
-//        String sql = "SELECT name FROM statuses s WHERE s.name = ? LIMIT 1";
-//        List<Status> s = jdbcTemplate.query(sql, new Object[]{name}, (resultSet, rowNum) -> null);
-//        if (s == null || s.size() == 0) {
-//            Status status = new Status();
-//            status.setName(name);
-//            statusRepository.save(status);
-//            // logger.info("SubProcess Seeded");
-//        } else {
-//            //  logger.info("SubProcess Seeding Not Required");
-//        }
-//    }
     @Transactional
     public void seedCasesStatusTable(String name) {
         String sql = "SELECT name FROM cases_status CS WHERE CS.name = ? LIMIT 1";
@@ -560,18 +828,6 @@ public class DatabaseSeeder {
         }
     }
 
-    //    @Transactional
-//    public void seedAllCategoriesTable(String name) {
-//        String sql = "SELECT name FROM all_categories AC WHERE AC.name = ? LIMIT 1";
-//        List<AllCategory> fc = jdbcTemplate.query(sql, new Object[]{name}, (resultSet, rowNum) -> null);
-//        if(fc == null || fc.size() == 0) {
-//            AllCategory allCategory = new AllCategory(name);
-//            allCategoryRepository.save(allCategory);
-//        }
-//        else {
-//            //logger.info("Users Seeding Not Required");
-//        }
-//    }
     @Transactional
     public void seedFraudTypesTable(String name) {
         String sql = "SELECT name FROM fraud_types FT WHERE FT.name = ? LIMIT 1";
@@ -649,19 +905,6 @@ public class DatabaseSeeder {
         }
     }
 
-/*    @Transactional
-    public void seedStatus(String name) {
-        String sql = "SELECT name FROM statuses s WHERE s.name = ? LIMIT 1";
-        List<Status> s = jdbcTemplate.query(sql, new Object[]{name}, (resultSet, rowNum) -> null);
-        if (s == null || s.size() == 0) {
-            Status status = new Status();
-            status.setName(name);
-            statusRepository.save(status);
-            // logger.info("SubProcess Seeded");
-        } else {
-            //  logger.info("SubProcess Seeding Not Required");
-        }
-    }*/
 
     @Transactional
     public void seedInsuranceCoverageType(String name) {

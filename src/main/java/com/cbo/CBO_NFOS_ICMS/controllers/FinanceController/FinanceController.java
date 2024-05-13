@@ -45,22 +45,20 @@ public class FinanceController {
     @PreAuthorize("hasAnyRole('ICMS_FINANCE_IC')")
     public ResponseEntity<Finance> addIFB
             (@RequestBody Finance finance) {
-        LocalDate date = LocalDate.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd, yyyy");
-        String formattedDate = date.format(formatter);
-
         String caseId = finance.getCaseId();
         while (financeService.isCaseIdExists(caseId)) {
             // Increment the caseId until it is unique
             caseId = incrementCaseId(caseId);
         }
         finance.setCaseId(caseId);
-        Finance newfinance = financeService.addIFB(finance);
-        return new ResponseEntity<>(newfinance, HttpStatus.CREATED);
+        System.out.println(caseId);
+        Finance newFinance = financeService.addIFB(finance);
+        return new ResponseEntity<>(newFinance, HttpStatus.CREATED);
     }
 
     private String incrementCaseId(String caseId) {
         String[] parts = caseId.split("/");
+
         int year = Integer.parseInt(parts[3]);
         int month = Integer.parseInt(parts[2]);
         int day = Integer.parseInt(parts[1]);
@@ -76,6 +74,7 @@ public class FinanceController {
 
         // Format the incremented values into the new caseId
         return String.format("%04d/%02d/%02d/%04d", caseNumber, day, month, year);
+
     }
 
     @PutMapping("/update")
@@ -89,10 +88,11 @@ public class FinanceController {
     }
 
     @GetMapping("/getSize")
-    @PreAuthorize("hasAnyRole('ICMS_FINANCE_IC')")
-    public int getIFBSize() {
+    public Long getFinanceSize() {
         return financeService.findFinanceSize();
     }
+
+
 
 
     @DeleteMapping("/delete/{id}")

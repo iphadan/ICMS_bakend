@@ -40,30 +40,10 @@ public class ShareService {
         return shareRepository.findAll();
     }
 
-
-//    public Share approveActionPlan(Long id, String actionPlanDueDate) {
-//        Share row = ShareRepository.findById(id).orElseThrow(() -> new UserNotFoundException("IncidentFraudReport by id = " + id + " was not found"));
-//        row.setActionPlanDueDate(actionPlanDueDate);
-//
-//        row.setActionTaken(true);
-//        System.out.println(row.getActionTaken());
-//
-//        return ShareRepository.save(row);
-//    }
     public boolean isCaseIdExists(String caseId) {
         return shareRepository.existsByCaseId(caseId);
     }
 
-    /*    public Share approveActionPlan(Long id, String actionPlanDueDate) {
-            Share row = ShareRepository.findById(id).orElseThrow(() -> new UserNotFoundException("IncidentFraudReport by id = " + id + " was not found"));
-            row.setActionPlanDueDate(actionPlanDueDate);
-            return ShareRepository.save(row);
-        }*/
-//    public Share escalatePlan(Long id) {
-//        Share row = ShareRepository.findById(id).orElseThrow(() -> new UserNotFoundException("IncidentFraudReport by id = " + id + " was not found"));
-//        row.setEscalatedByManager(true);
-//        return ShareRepository.save(row);
-//    }
     public int findShareSize() {
         return shareRepository.findAll().size();
     }
@@ -83,10 +63,6 @@ public class ShareService {
         return shareRepository.findShareById(id)
                 .orElseThrow(() -> new UserNotFoundException("User by id" + id + " was not found"));
     }
-  /*  public int findShareByAccountNumber(String accountNumber) {
-        return (ShareRepository.findShareByAccountNumber(accountNumber)).size();
-    }
-    */
 
 
     public void deleteShare(Long id) {
@@ -103,29 +79,6 @@ public class ShareService {
     }
 
 
-//    public List<Share> findAllShareInSpecificSubProcess(Long id) {
-//        SubProcess subProcess = subProcessService.findSubProcessById(id);
-//        List<Branch> organizationalUnits = branchService.findBranchBySubProcess(subProcess);
-//        List<Share> dchques = new ArrayList<>();
-//        for (int i = 0; i < organizationalUnits.size(); i++) {
-//            List<Share> clmfjhd = ShareRepository.findShareByBranch(organizationalUnits.get(i));
-//            for (int j = 0; j < clmfjhd.size(); j++) {
-//                dchques.add(ShareRepository.findShareByBranch(organizationalUnits.get(i)).get(j));
-//
-//            }
-//
-//
-//        }
-//        return dchques;
-//    }
-
-
-   /* public Share updateTableRow(Long id, boolean caseAuthorized) {
-        Share row = ShareRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Share  by id" + id + " was not found"));
-        row.setCaseAuthorized(caseAuthorized);
-        return ShareRepository.save(row);
-    }*/
-
     public void deleteRow(int id) {
         Optional<Share> data = shareRepository.findById((long) id);
         if (data.isPresent()) {
@@ -141,7 +94,4 @@ public class ShareService {
         }
     }
 
-//    public Share approveShare(Share Share) {
-//
-//    }
 }

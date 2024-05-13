@@ -16,7 +16,7 @@ public class AllIrregularity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false, updatable = false)
     private Long id;
-    @Column(nullable = false, length = 128)
+    @Column(nullable = false, length = 10000, columnDefinition = "TEXT")
     private String name;
     @ManyToOne
     @JoinColumn(name = "all_sub_category_id")

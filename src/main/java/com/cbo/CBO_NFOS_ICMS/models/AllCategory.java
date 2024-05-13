@@ -19,7 +19,7 @@ public class AllCategory {
     @Column(updatable = false)
     private Long id;
 
-    @Column(length = 64)
+    @Column(columnDefinition = "TEXT",length = 500)
     private String name;
 
     @ManyToOne

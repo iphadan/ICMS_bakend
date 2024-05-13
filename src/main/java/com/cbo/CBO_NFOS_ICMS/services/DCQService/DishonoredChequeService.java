@@ -75,19 +75,6 @@ public class DishonoredChequeService {
         return dishonoredChequeRepository.findDishonouredChequeByBranchId(branchid);
     }
 
-    //    public List<DishonoredCheque> findAllDishonouredChequeInSpecificSubProcess(Long id) {
-//        SubProcess subProcess = subProcessService.findSubProcessById(id);
-//        List<Branch> organizationalUnits = organizationalUnitService.findBranchBySubProcess(subProcess);
-//        List<DishonoredCheque> dchques = new ArrayList<>();
-//        for (int i = 0; i < organizationalUnits.size(); i++) {
-//            List<DishonoredCheque> clmfjhd = dishonoredChequeRepository.findDishonouredChequeByBranch(organizationalUnits.get(i));
-//            for (int j = 0; j < clmfjhd.size(); j++) {
-//                dchques.add(dishonoredChequeRepository.findDishonouredChequeByBranch(organizationalUnits.get(i)).get(j));
-//
-//            }
-//        }
-//        return dchques;
-//    }
     public List<DishonoredCheque> findAllDishonouredChequeInSpecificSubProcess(Long subProcessId) {
         //Branch branch = organizationalUnitService.findBranchById(id);
         return dishonoredChequeRepository.findDishonouredChequeBySubProcessId(subProcessId);

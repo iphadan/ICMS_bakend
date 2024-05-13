@@ -64,7 +64,6 @@ public class ShareController {
             (@RequestBody Share share) {
         String caseId = share.getCaseId();
         while (shareService.isCaseIdExists(caseId)) {
-            // Increment the caseId until it is unique
             caseId = incrementCaseId(caseId);
         }
         share.setCaseId(caseId);
@@ -74,7 +73,6 @@ public class ShareController {
     }
     private String incrementCaseId(String caseId) {
         String[] parts = caseId.split("/");
-//<<<<<<< HEAD
         int year = Integer.parseInt(parts[3]);
         int month = Integer.parseInt(parts[2]);
         int day = Integer.parseInt(parts[1]);
@@ -90,33 +88,6 @@ public class ShareController {
 
         // Format the incremented values into the new caseId
         return String.format("%04d/%02d/%02d/%04d", caseNumber, day, month, year);
-//=======
-//        int year = Integer.parseInt(parts[2]);
-//        int month = Integer.parseInt(parts[1]);
-//        int day = Integer.parseInt(parts[0]);
-//
-//        // Increment the day, month, or year as needed
-//        // Here we assume a simple increment, but you can implement your own logic based on your requirements
-//        if (day < 31) {
-//            day++;
-//        } else {
-//            day = 1;
-//            if (month < 12) {
-//                month++;
-//            } else {
-//                month = 1;
-//                year++;
-//            }
-//        }
-//
-//        // Reset the caseId to "001" if the year has changed
-//        if (year > Integer.parseInt(parts[2])) {
-//            return "001/01/01/" + String.format("%04d", year);
-//        }
-//
-//        // Format the incremented values into the new caseId
-//        return String.format("%03d/%02d/%02d/%04d", day, month, year);
-//>>>>>>> daee81c8c31a4d330f9fb199b891a66bfdcb146d
     }
     @PutMapping("/update")
     @PreAuthorize("hasRole('ICMS_BRANCH_IC')")
@@ -126,13 +97,6 @@ public class ShareController {
         return new ResponseEntity<>(updateShare, HttpStatus.CREATED);
     }
 
-    //    @PutMapping("/approve/{id}")
-//    @PreAuthorize("hasRole('ICMS_BRANCH_MANAGER')")
-//    public ResponseEntity<Share> approveShare
-//            (@RequestBody Share share){
-//        Share approvedShare = shareService.approveShare(share);
-//        return new ResponseEntity<>(approvedShare, HttpStatus.CREATED);
-//    }
     @DeleteMapping("/delete/{id}")
     @PreAuthorize("hasRole('ICMS_BRANCH_IC')")
 
@@ -141,14 +105,4 @@ public class ShareController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
 }
-
-    /*@GetMapping("/getFrequencyForAccountNumber/{accountNumber}")
-    public Frequency getDCFrequency
-            (@PathVariable("accountNumber") String accountNumber){
-        int frequency  = shareService.findShareByAccountNumber(accountNumber);
-        Frequency frequencyCount = new Frequency();
-        frequencyCount.setCount(frequency);
-        return frequencyCount;
-    }*/

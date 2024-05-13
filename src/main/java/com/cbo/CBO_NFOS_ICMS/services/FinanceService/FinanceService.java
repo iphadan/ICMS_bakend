@@ -48,8 +48,6 @@ public class FinanceService {
         }
     }
 
-
-
     public Finance findFinanceById(Long id) {
         return financeRepository.findFinanceById(id)
                 .orElseThrow(() -> new UserNotFoundException("User by id" + id + " was not found"));
@@ -99,7 +97,9 @@ public class FinanceService {
         return financeRepository.existsByCaseId(caseId);
     }
 
-    public int findFinanceSize() {
-        return financeRepository.findAll().size();
+    public Long findFinanceSize() {
+        Long lastId = financeRepository.findLastAddedDACGMId();
+        return lastId != null ? lastId : 0L;
     }
+
 }

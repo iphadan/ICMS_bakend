@@ -33,7 +33,6 @@ public class DailyActivityGapControlService {
 
 
     public DailyActivityGapControl addDACGM(DailyActivityGapControl dACGM) {
-
         return dACGMRepository.save(dACGM);
     }
 //
@@ -62,20 +61,12 @@ public class DailyActivityGapControlService {
         return dACGMRepository.existsByCaseId(caseId);
     }
 
-/*    public DailyActivityGapControl approveActionPlan(Long id, String actionPlanDueDate) {
-        DailyActivityGapControl row = dACGMRepository.findById(id).orElseThrow(() -> new UserNotFoundException("IncidentFraudReport by id = " + id + " was not found"));
-        row.setActionPlanDueDate(actionPlanDueDate);
-        return dACGMRepository.save(row);
-    }*/
     public DailyActivityGapControl escalatePlan(Long id) {
         DailyActivityGapControl row = dACGMRepository.findById(id).orElseThrow(() -> new UserNotFoundException("IncidentFraudReport by id = " + id + " was not found"));
         row.setEscalatedByManager(true);
         return dACGMRepository.save(row);
     }
-//    public int findDACGMSize() {
-//
-//        return dACGMRepository.findAll().size();
-//    }
+
 
     public DailyActivityGapControl updateDACGM(DailyActivityGapControl dACGM) {
         Optional<DailyActivityGapControl> optionalDACGM = dACGMRepository.findById(dACGM.getId());
@@ -92,11 +83,6 @@ public class DailyActivityGapControlService {
         return dACGMRepository.findDACGMById(id)
                 .orElseThrow(() -> new UserNotFoundException("User by id" + id + " was not found"));
     }
-  /*  public int findDACGMByAccountNumber(String accountNumber) {
-        return (dACGMRepository.findDACGMByAccountNumber(accountNumber)).size();
-    }
-    */
-
 
     public void deleteDACGM(Long id) {
         dACGMRepository.deleteById(id);
@@ -110,30 +96,6 @@ public class DailyActivityGapControlService {
 //        Branch branch = organizationalUnitService.findBranchById(id);
         return dACGMRepository.findDACGMBySubProcessId(subProcessId);
     }
-
-
-//    public List<DailyActivityGapControl> findAllDACGMInSpecificSubProcess(Long id) {
-//        SubProcess subProcess = subProcessService.findSubProcessById(id);
-//        List<Branch> organizationalUnits = branchService.findBranchBySubProcess(subProcess);
-//        List<DailyActivityGapControl> dchques = new ArrayList<>();
-//        for (int i = 0; i < organizationalUnits.size(); i++) {
-//            List<DailyActivityGapControl> clmfjhd = dACGMRepository.findDACGMByBranch(organizationalUnits.get(i));
-//            for (int j = 0; j < clmfjhd.size(); j++) {
-//                dchques.add(dACGMRepository.findDACGMByBranch(organizationalUnits.get(i)).get(j));
-//
-//            }
-//
-//
-//        }
-//        return dchques;
-//    }
-
-
-   /* public DACGM updateTableRow(Long id, boolean caseAuthorized) {
-        DACGM row = dACGMRepository.findById(id).orElseThrow(() -> new UserNotFoundException("DACGM  by id" + id + " was not found"));
-        row.setCaseAuthorized(caseAuthorized);
-        return dACGMRepository.save(row);
-    }*/
 
     public void deleteRow(int id) {
         Optional<DailyActivityGapControl> data = dACGMRepository.findById((long) id);
@@ -177,9 +139,4 @@ public class DailyActivityGapControlService {
 
         return subCategoryCounts;
     }
-
-
-//    public DailyActivityGapControl approveDACGM(DailyActivityGapControl dACGM) {
-//
-//    }
 }
