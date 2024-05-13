@@ -1,8 +1,6 @@
 package com.cbo.CBO_NFOS_ICMS.seeders;
 
-import com.cbo.CBO_NFOS_ICMS.models.AllCategory;
-import com.cbo.CBO_NFOS_ICMS.models.AllIrregularity;
-import com.cbo.CBO_NFOS_ICMS.models.AllSubCategory;
+import com.cbo.CBO_NFOS_ICMS.models.*;
 import com.cbo.CBO_NFOS_ICMS.models.CIPM.CollateralType;
 import com.cbo.CBO_NFOS_ICMS.models.CIPM.InsuranceCoverageType;
 import com.cbo.CBO_NFOS_ICMS.models.CIPM.Status;
@@ -14,10 +12,7 @@ import com.cbo.CBO_NFOS_ICMS.models.Finance.FinanceStatus;
 import com.cbo.CBO_NFOS_ICMS.models.IFB.ProductType;
 import com.cbo.CBO_NFOS_ICMS.models.IFR.CaseStatus;
 import com.cbo.CBO_NFOS_ICMS.models.IFR.FraudType;
-import com.cbo.CBO_NFOS_ICMS.models.SubModule;
-import com.cbo.CBO_NFOS_ICMS.repositories.AllCategoryRepository;
-import com.cbo.CBO_NFOS_ICMS.repositories.AllIrregularityRepository;
-import com.cbo.CBO_NFOS_ICMS.repositories.AllSubCategoryRepository;
+import com.cbo.CBO_NFOS_ICMS.repositories.*;
 import com.cbo.CBO_NFOS_ICMS.repositories.CIPMRepository.CollateralTypeRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.CIPMRepository.InsuranceCoverageTypeRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.CIPMRepository.StatusRepository;
@@ -30,9 +25,11 @@ import com.cbo.CBO_NFOS_ICMS.repositories.IFBRepository.IfbStatusRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.IFBRepository.ProductTypeRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.IFRRepository.CaseStatusRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.IFRRepository.FraudTypeRepository;
-import com.cbo.CBO_NFOS_ICMS.repositories.SubModuleRepository;
+import com.cbo.CBO_NFOS_ICMS.repositories.TradeRepository.TradeRepository;
 import com.cbo.CBO_NFOS_ICMS.services.AllCategoryService;
 import com.cbo.CBO_NFOS_ICMS.services.AllSubCategoryService;
+import com.cbo.CBO_NFOS_ICMS.services.AllTradeTypeService;
+import com.cbo.CBO_NFOS_ICMS.services.TradeService.TradeService;
 import com.cbo.CBO_NFOS_ICMS.services.UserAndEmployeeService.SubModuleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -48,6 +45,7 @@ public class DatabaseSeeder {
     //private Logger logger = Logger.getLogger(DatabaseSeeder.class);
     private JdbcTemplate jdbcTemplate;
     private CollateralTypeRepository collateralTypeRepository;
+    private TradeRepository repository;
     private ProductTypeRepository productTypeRepository;
     private StatusRepository statusRepository;
     private InsuranceCoverageTypeRepository insuranceCoverageTypeRepository;
@@ -61,13 +59,20 @@ public class DatabaseSeeder {
     private SuspectedFraudsterProfessionRepository suspectedFraudsterProfessionRepository;
     private AllSubCategoryRepository allSubCategoryRepository;
     private AllIrregularityRepository allIrregularityRepository;
+    private TradeRepository tradeRepository;
+    private AllTradeTypeRepository tradeTypeRepository;
+
     private SubModuleRepository subModuleRepository;
     private SubModuleService subModuleService;
     private AllCategoryService allCategoryService;
     private AllSubCategoryService allSubCategoryService;
+    private TradeService tradeService;
+    private AllTradeTypeService allTradeTypeService;
     private List<SubModule> subModules;
     private List<AllCategory> allCategories;
     private List<AllSubCategory> allSubCategories;
+    private List<TradeType> tradeTypes;
+
 
     @Autowired
     public DatabaseSeeder(
@@ -75,6 +80,9 @@ public class DatabaseSeeder {
             AllSubCategoryRepository allSubCategoryRepository,
             CollateralTypeRepository collateralTypeRepository,
             ProductTypeRepository productTypeRepository,
+            TradeRepository tradeRepository,
+            AllTradeTypeRepository tradeTypeRepository,
+
             StatusRepository statusRepository,
             IfbStatusRepository ifbStatusRepository,
             InsuranceCoverageTypeRepository insuranceCoverageTypeRepository,
@@ -90,9 +98,16 @@ public class DatabaseSeeder {
             SubModuleService subModuleService,
             AllCategoryService allCategoryService,
             AllSubCategoryService allSubCategoryService,
-            AllIrregularityRepository allIrregularityRepository
+            AllIrregularityRepository allIrregularityRepository,
+            AllTradeTypeService allTradeTypeService,
+            TradeService tradeService
+
     ) {
         this.jdbcTemplate = jdbcTemplate;
+        this.allTradeTypeService = allTradeTypeService;
+        this.tradeService =tradeService;
+        this.tradeRepository = tradeRepository;
+        this.tradeTypeRepository =tradeTypeRepository;
         this.allSubCategoryRepository = allSubCategoryRepository;
         this.collateralTypeRepository = collateralTypeRepository;
         this.productTypeRepository = productTypeRepository;
@@ -204,6 +219,7 @@ public class DatabaseSeeder {
         seedSubModulesTable("PFPIC", "Procurement and Faculty Process Internal Controller");
         seedSubModulesTable("DCQ", "Dishonored Cheque");
         seedSubModulesTable("CIPM", "Collateral Insurance Policy Monitoring");
+        seedSubModulesTable("TSIPM", "Trade Service Internal Policy Monitoring");
 
         this.subModules = this.subModuleService.findAllSubModule();
         seedAllCategoriesTable("Cash", findSubModuleByCode("IFR"));
@@ -266,7 +282,14 @@ public class DatabaseSeeder {
         seedAllCategoriesTable("Share Registration", findSubModuleByCode("SMPIC"));
         seedAllCategoriesTable("Share Subscription", findSubModuleByCode("SMPIC"));
         seedAllCategoriesTable("Other ", findSubModuleByCode("SMPIC"));
-
+//TSIPM seeding allcatagories
+        seedAllCategoriesTable("Import", findSubModuleByCode("TSIPM"));
+        seedAllCategoriesTable("Export", findSubModuleByCode("TSIPM"));
+        seedAllCategoriesTable("Foreign Letter of Guarantee", findSubModuleByCode("TSIPM"));
+        seedAllCategoriesTable("Foreign Transfers", findSubModuleByCode("TSIPM"));
+        seedAllCategoriesTable("Correspondent Accounts Reconciliation", findSubModuleByCode("TSIPM"));
+        SeedAllTradeTypeTable("Financial", findSubModuleByCode("TSIPM"));
+        SeedAllTradeTypeTable("Non-Financial", findSubModuleByCode("TSIPM"));
 
 
         this.allCategories = this.allCategoryService.findAllAllCategory();
@@ -293,7 +316,24 @@ public class DatabaseSeeder {
         seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Stock and Negotiable Instrument Management"));
         seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Fixed Asset Management"));
         seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Human Resource Management"));
+//TSIPM seeding allcatagories
+        seedAllSubCategoriesTable("LC", findAllCategoryByName("Import"));
+        seedAllSubCategoriesTable("CAD", findAllCategoryByName("Import"));
+        seedAllSubCategoriesTable("Advance Payment", findAllCategoryByName("Import"));
 
+        seedAllSubCategoriesTable("Export LC", findAllCategoryByName("Export"));
+        seedAllSubCategoriesTable("CAD", findAllCategoryByName("Export"));
+        seedAllSubCategoriesTable("Advance Payment", findAllCategoryByName("Export"));
+        seedAllSubCategoriesTable("Export Consignment", findAllCategoryByName("Export"));
+        seedAllSubCategoriesTable("Small Items Export", findAllCategoryByName("Export"));
+
+        seedAllSubCategoriesTable("Indirect Foreign Guarantee", findAllCategoryByName("Foreign Letter of Guarantee"));
+        seedAllSubCategoriesTable("Direct Foreign Guarantee", findAllCategoryByName("Foreign Letter of Guarantee"));
+
+        seedAllSubCategoriesTable("Bank to bank Transfer", findAllCategoryByName("Foreign Transfers"));
+        seedAllSubCategoriesTable("Money Transfer through Money Transfer Operators (MTOs)", findAllCategoryByName("Foreign Transfers"));
+
+        seedAllSubCategoriesTable("Correspondent Accounts Reconciliation", findAllCategoryByName("Correspondent Accounts Reconciliation"));
 
         //IFB
 
@@ -777,8 +817,186 @@ public class DatabaseSeeder {
         seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Other"));
         seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Other"));
 
+//TSIPM Irregularity
+        seedAllIrregularitiesTable("The customer does not have NBE Import Account number", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The foreign exchange request is not approved", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The LC amount is above the approved foreign exchange request", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The customer is under delinquent list", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The LC is opened with margin facility above or without approval LC margin (Specify)", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The foreign exchange application form is not complete, signed and the signature is not verified (Specify)", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The LC application form is not complete, signed and the customer's signature is not verified (Specify)", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The information in the LC application form is not consistent with the Proforma invoice and other relevant documents (Specify)", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The LC is not processed in accordance with the applicant instruction, NBE Directive, TS Procedure, ICC rules and regulations etc… (Specify)", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The required document/s is/are not collected (Specify)", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The accounting entries are not correct (Specify)", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("All related commissions and charges are not collected (specify the amount and the type of the commission)", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The LC amendment request is not applicable as per NBE Directive, TS Procedure, ICC and other rules and regulations (Specify)", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("LC amendment request application is not signed or the signature is not verified.", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The amendment commission and related charge is not collected (specify the amount and type of commission or charge)", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The application form for issuance of guarantee is not signed or the signature is not verified", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The value of the document of the shipping guarantee is not collected or partially collected (Specify)", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The document collected for the settlement of the LC is discrepant (Specify the discrepancy)", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The LC is not settled in accordance with initial LC terms and conditions, NBE directives, ICC and other rules and regulations (Specify)", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("Signed discrepancy acceptance form is not collected before the LC is settlement process", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The negotiating bank is not notified about the discrepancy before the LC is settled (Specify the discrepancy)", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The accounting entries during the LC settlement are not correct (Specify the wrong entry)", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("Settlement related commissions and/or charges are not collected ( Specify the amount and type of the commission/charge not collected)", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The LC file is not properly organized and put on safe manner", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("Signed LC cancellation application form is not collected and the signature is not verified", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The LC cancellation is not applicable as per the NBE Directive, TS Procedure, ICC and other rules and regulations (Specify)", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The accounting entries during the LC cancellation are not correct (Specify the wrong entry)", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The cancellation commission and related charge (if any) is not collected (specify the amount and type of commission or charge)", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("The SWIFT message/s are not in line with LC or the related document of the Opening, extension, amendment, cancellation, settlement, payment instructions etc… (Specify the SWIFT message that is not in accordance with the LC terms and condition)", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
+
+        seedAllIrregularitiesTable("The customer does not have NBE Import Account number", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("The foreign exchange request is not approved", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("The CAD amount is above the approved foreign exchange request", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("The application of the foreign currency request against the permitted items to import as per the rules and regulations of the ICC, the law of the land or other local and international laws (Specify)", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("The customer is under delinquent list", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("All the required document/s is/are not collected (Specify)", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("The document amount is partially or not fully blocked in the CBS", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("The Purchase Order (PO) is not recorded in the PO register book", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("All the necessary commissions and charges are not collected (Specify the amount and type of the commission or charge not collected)", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("The purchase order extension application not signed and/or the signature not verified", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("The applied PO extension period is more than nine months", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("The amendment request application is not signed by the customer or the signature is not verified", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("The amendment request of the PO is not in line with NBE directives and other local and international laws (Specify)", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("The necessary commission and/or charge is not collected (Specify the amount and the type of the charge or commission not collected)", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("The CAD is settled after the purchase order is expired", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("The settlement of the CAD is not in line with the initial approved PO (Specify)", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("The settlement of the CAD is against the NBE Directive, Trade Service Procedure and other pertinent local and international laws (Specify)", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("The customers signed consent to deduct the amount of the CAD along with other charges and commissions is not collected prior to settlement of the CAD", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("The accounting entries are not correct (Specify the wrong entries)", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("The issued shipping guarantee application is not signed or the signature is not verified", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("110% value of the shipping guarantee document is not blocked", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("Service charge of USD 150 equivalent in ETB not collected", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("The accounting entries during the shipping guarantee is not correct (Specify the wrong accounting entries)", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("CAD", "Import"));
+
+        seedAllIrregularitiesTable("The customer does not have NBE Import Account number", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Import"));
+        seedAllIrregularitiesTable("The foreign exchange application letter is not signed by the customer or the signature is not signed", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Import"));
+        seedAllIrregularitiesTable("The advance payment order is not in accordance with the NBE directive, TS procedure and other pertinent local and international laws (Specify)", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Import"));
+        seedAllIrregularitiesTable("The foreign exchange request is not approved", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Import"));
+        seedAllIrregularitiesTable("The advance payment foreign exchange permit is not recorded in the register book", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Import"));
+        seedAllIrregularitiesTable("The foreign exchange request is above the permitted amount USD 5,000.00.", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Import"));
+        seedAllIrregularitiesTable("The Advance Payment amount is above the approved foreign exchange request", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Import"));
+        seedAllIrregularitiesTable("The application of the foreign currency request is against the permitted items to import as per the rules and regulations of the ICC, the law of the land or other local and international laws (Specify)", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Import"));
+        seedAllIrregularitiesTable("The customer is under delinquent list", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Import"));
+        seedAllIrregularitiesTable("The Advance Payment permit has expired i.e., above 30 days", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Import"));
+        seedAllIrregularitiesTable("All the required document/s is/ are not collected (Specify)", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Import"));
+        seedAllIrregularitiesTable("All service charges and commissions are not collected (Specify the amount and the type of the charge and/or commission)", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Import"));
+        seedAllIrregularitiesTable("The accounting entry of the import advance payment is not correct (Specify the wrong entry)", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Import"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Import"));
+
+        seedAllIrregularitiesTable("The customer does not have NBE Import Account number", findAllSubCategoryByNameAndCategoryName("Export LC", "Export"));
+        seedAllIrregularitiesTable("The customer is under delinquent list", findAllSubCategoryByNameAndCategoryName("Export LC", "Export"));
+        seedAllIrregularitiesTable("All the necessary documents are not collected as per the original LC, the NBE Directive the law of the land and other pertinent local and international laws and regulations (Specify the missing document/s)", findAllSubCategoryByNameAndCategoryName("Export LC", "Export"));
+        seedAllIrregularitiesTable("The presented documents is/are inconsistent against the original LC (Specify the inconsistency)", findAllSubCategoryByNameAndCategoryName("Export LC", "Export"));
+        seedAllIrregularitiesTable("The export permit issued (including the export item) is not in line with the NBE directive, the law of the land and international laws (Specify the violation)", findAllSubCategoryByNameAndCategoryName("Export LC", "Export"));
+        seedAllIrregularitiesTable("The export LC is against the NBE directives and other local and international laws (Specify the violated rule, regulation, directive, procedure etc…)", findAllSubCategoryByNameAndCategoryName("Export LC", "Export"));
+        seedAllIrregularitiesTable("The export LC amendment is not applicable or in accordance with the original LC, NBE Directive, other local and international laws (Specify the violated term, condition and/or law)", findAllSubCategoryByNameAndCategoryName("Export LC", "Export"));
+        seedAllIrregularitiesTable("The applicant consent is not collected via SWIFT message regarding LC amendment", findAllSubCategoryByNameAndCategoryName("Export LC", "Export"));
+        seedAllIrregularitiesTable("The SWIFT message/s are not in line with LC or the related document of the Opening, extension, amendment, cancellation, settlement, payment instructions etc… (Specify the SWIFT message that is not in accordance with the LC terms and condition)", findAllSubCategoryByNameAndCategoryName("Export LC", "Export"));
+        seedAllIrregularitiesTable("The applicant consent is not collected via SWIFT message regarding LC cancellation", findAllSubCategoryByNameAndCategoryName("Export LC", "Export"));
+        seedAllIrregularitiesTable("The covering letter prepared is inconsistent with the LC and/or the documents (Specify the inconsistency)", findAllSubCategoryByNameAndCategoryName("Export LC", "Export"));
+        seedAllIrregularitiesTable("The accounting entries are not correct (Specify the wrong entry)", findAllSubCategoryByNameAndCategoryName("Export LC", "Export"));
+        seedAllIrregularitiesTable("The exporter’s account is credited before the proceeds are collected on the ODBC (Specify the amount)", findAllSubCategoryByNameAndCategoryName("Export LC", "Export"));
+        seedAllIrregularitiesTable("The appropriate single entry is not passed on the memorandum account (Specify the amount)", findAllSubCategoryByNameAndCategoryName("Export LC", "Export"));
+        seedAllIrregularitiesTable("The account entries are not correct (Specify the wrong entry)", findAllSubCategoryByNameAndCategoryName("Export LC", "Export"));
+        seedAllIrregularitiesTable("Genuine documents are not collected on the export via ODBP (Specify the missing of inappropriate document)", findAllSubCategoryByNameAndCategoryName("Export LC", "Export"));
+        seedAllIrregularitiesTable("Proper accounting entry is not passed for the export via ODBP (Specify the wrong entry)", findAllSubCategoryByNameAndCategoryName("Export LC", "Export"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Export LC", "Export"));
+
+        seedAllIrregularitiesTable("The customer is under delinquent list", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Export"));
+        seedAllIrregularitiesTable("The advance payment was not made (Specify the amount)", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Export"));
+        seedAllIrregularitiesTable("The FCY cash received is exchanged after 24 hours", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Export"));
+        seedAllIrregularitiesTable("Valid documents in line with the NBE directive are not collected (Specify the missing documents)", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Export"));
+        seedAllIrregularitiesTable("The export permit is invalid (Specify)", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Export"));
+        seedAllIrregularitiesTable("The appropriate Accounting entries are not passed (Specify the amount and the wrong entry)", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Export"));
+        seedAllIrregularitiesTable("The SWIFT message is not consistent with the Advance Payment Document and sales contract", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Export"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Export"));
+
+        seedAllIrregularitiesTable("All required documents are not collected (Specify)", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Export"));
+        seedAllIrregularitiesTable("The customer is under delinquent list", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Export"));
+        seedAllIrregularitiesTable("The export documents are not in line with the sales contract", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Export"));
+        seedAllIrregularitiesTable("The accounting entries are not correct", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Export"));
+        seedAllIrregularitiesTable("The SWIFT message is inconsistent with the sales contract", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Export"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Export"));
+
+        seedAllIrregularitiesTable("All required documents are not collected (Specify)", findAllSubCategoryByNameAndCategoryName("Export Consignment", "Export"));
+        seedAllIrregularitiesTable("The customer is under delinquent list", findAllSubCategoryByNameAndCategoryName("Export Consignment", "Export"));
+        seedAllIrregularitiesTable("The export documents are not in line with the sales contract", findAllSubCategoryByNameAndCategoryName("Export Consignment", "Export"));
+        seedAllIrregularitiesTable("The accounting entries are not correct", findAllSubCategoryByNameAndCategoryName("Export Consignment", "Export"));
+        seedAllIrregularitiesTable("The SWIFT message is inconsistent with the sales contract", findAllSubCategoryByNameAndCategoryName("Export Consignment", "Export"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Export Consignment", "Export"));
+
+        seedAllIrregularitiesTable("The customer is under delinquent list", findAllSubCategoryByNameAndCategoryName("Small Items Export", "Export"));
+        seedAllIrregularitiesTable("The export item is not permitted as per the NBE Directive", findAllSubCategoryByNameAndCategoryName("Small Items Export", "Export"));
+        seedAllIrregularitiesTable("The appropriate charges and commissions are not collected (Specify amount and the type of the charge or commission)", findAllSubCategoryByNameAndCategoryName("Small Items Export", "Export"));
+        seedAllIrregularitiesTable("The export item is above USD 500", findAllSubCategoryByNameAndCategoryName("Small Items Export", "Export"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Small Items Export", "Export"));
+
+        seedAllIrregularitiesTable("The guarantee not approved by the appropriate approving body of the bank", findAllSubCategoryByNameAndCategoryName("Indirect Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The guarantee letter does not clearly specify the terms and conditions of the guarantee such as the amount, the currency, who is liable for the related charges, expiry date etc… (specify the missing mandatory term or condition)", findAllSubCategoryByNameAndCategoryName("Indirect Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The appropriate single entry not passed (Specify the amount involved)", findAllSubCategoryByNameAndCategoryName("Indirect Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The beneficiary consent was not collected before performing the amendment", findAllSubCategoryByNameAndCategoryName("Indirect Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The SWIFT message is not aligned with the terms and conditions of the guarantee and/or the amendment (Specify the discrepancy)", findAllSubCategoryByNameAndCategoryName("Indirect Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The appropriate entry did not passed upon honoring the guarantee claim (Specify the amount of the wrong entry)", findAllSubCategoryByNameAndCategoryName("Indirect Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The guarantee file is not properly filed (Specify the missing document)", findAllSubCategoryByNameAndCategoryName("Indirect Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("All the necessary charges and commissions not collected (Specify the amount and type of commission or charge)", findAllSubCategoryByNameAndCategoryName("Indirect Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The release of the guarantee performed before the expiry date", findAllSubCategoryByNameAndCategoryName("Indirect Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The release of the guarantee performed without collecting the written consent of the beneficiary", findAllSubCategoryByNameAndCategoryName("Indirect Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The guarantee is released but the original Letter of Guarantee was not collected", findAllSubCategoryByNameAndCategoryName("Indirect Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The Original Guarantee is collected upon releasing the guarantee but not stamped at the back “Returned”.", findAllSubCategoryByNameAndCategoryName("Indirect Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The appropriate SWIFT Message is not prepared", findAllSubCategoryByNameAndCategoryName("Indirect Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The outstanding charge (if any) is not collected (Specify the amount)", findAllSubCategoryByNameAndCategoryName("Indirect Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Indirect Foreign Guarantee", "Foreign Letter of Guarantee"));
+
+        seedAllIrregularitiesTable("The SWIFT message is not in line with the terms and condition of the foreign guarantee (Specify the discrepancy)", findAllSubCategoryByNameAndCategoryName("Direct Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The accounting entries passed are not correct (Specify the wrong entry)", findAllSubCategoryByNameAndCategoryName("Direct Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The commission and the service charge were not collected or wrongly collected (Specify the amount and the type of commission or charge)", findAllSubCategoryByNameAndCategoryName("Direct Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The amendment requested is not applicable as per the terms and conditions of the guarantee", findAllSubCategoryByNameAndCategoryName("Direct Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The amendment charge is not collected (state the amount)", findAllSubCategoryByNameAndCategoryName("Direct Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The consent of the beneficiary not collected before performing the amendment", findAllSubCategoryByNameAndCategoryName("Direct Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The appropriate account entries are not passed (state the wrong entry and the amount involved)", findAllSubCategoryByNameAndCategoryName("Direct Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The SWIFT message for the amendment is not as per request (state the discrepancy or the deviation on the SWIFT)", findAllSubCategoryByNameAndCategoryName("Direct Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The guarantee was expired before performing the settlement", findAllSubCategoryByNameAndCategoryName("Direct Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The claim letter was not collected from the beneficiary before performing the settlement", findAllSubCategoryByNameAndCategoryName("Direct Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The appropriate entries not passed up on the settlement of the guarantee (state the wrong entry)", findAllSubCategoryByNameAndCategoryName("Direct Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The appropriate charge not collected (state the amount not collected or wrongly collected)", findAllSubCategoryByNameAndCategoryName("Direct Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The beneficiary’s consent not collected during the release of the guarantee", findAllSubCategoryByNameAndCategoryName("Direct Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("The SWIFT message prepared during the settlement is not in line with the terms and condition of the guarantee", findAllSubCategoryByNameAndCategoryName("Direct Foreign Guarantee", "Foreign Letter of Guarantee"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Direct Foreign Guarantee", "Foreign Letter of Guarantee"));
+
+        seedAllIrregularitiesTable("The proper accounting entry is not passed as per the SWIFT message (Specify the wrong entry)", findAllSubCategoryByNameAndCategoryName("Bank to bank Transfer", "Foreign Transfers"));
+        seedAllIrregularitiesTable("Delinquent list, sanction list not checked before crediting the beneficiary account", findAllSubCategoryByNameAndCategoryName("Bank to bank Transfer", "Foreign Transfers"));
+        seedAllIrregularitiesTable("The transfer documents are not properly filed", findAllSubCategoryByNameAndCategoryName("Bank to bank Transfer", "Foreign Transfers"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Bank to bank Transfer", "Foreign Transfers"));
+
+        seedAllIrregularitiesTable("The complete information (KYC) of the beneficiary not filled (specify the missing information)", findAllSubCategoryByNameAndCategoryName("Money Transfer through Money Transfer Operators (MTOs)", "Foreign Transfers"));
+        seedAllIrregularitiesTable("The proper entries have not passed (state the wrong entries)", findAllSubCategoryByNameAndCategoryName("Money Transfer through Money Transfer Operators (MTOs)", "Foreign Transfers"));
+        seedAllIrregularitiesTable("The proper accounting entry is not passed as per the SWIFT message (Specify the wrong entry)", findAllSubCategoryByNameAndCategoryName("Money Transfer through Money Transfer Operators (MTOs)", "Foreign Transfers"));
+        seedAllIrregularitiesTable("Delinquent list, sanction list not checked before crediting the beneficiary account", findAllSubCategoryByNameAndCategoryName("Money Transfer through Money Transfer Operators (MTOs)", "Foreign Transfers"));
+        seedAllIrregularitiesTable("The transfer documents are not properly filed", findAllSubCategoryByNameAndCategoryName("Money Transfer through Money Transfer Operators (MTOs)", "Foreign Transfers"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Money Transfer through Money Transfer Operators (MTOs)", "Foreign Transfers"));
+
+        seedAllIrregularitiesTable("The complete information (KYC) of the beneficiary not filled (specify the missing information)", findAllSubCategoryByNameAndCategoryName("Money Transfer through Money Transfer Operators (MTOs)", "Foreign Transfers"));
+        seedAllIrregularitiesTable("The proper entries have not passed (state the wrong entries)", findAllSubCategoryByNameAndCategoryName("Money Transfer through Money Transfer Operators (MTOs)", "Foreign Transfers"));
+        seedAllIrregularitiesTable("The proper accounting entry is not passed as per the SWIFT message (Specify the wrong entry)", findAllSubCategoryByNameAndCategoryName("Money Transfer through Money Transfer Operators (MTOs)", "Foreign Transfers"));
+        seedAllIrregularitiesTable("Delinquent list, sanction list not checked before crediting the beneficiary account", findAllSubCategoryByNameAndCategoryName("Money Transfer through Money Transfer Operators (MTOs)", "Foreign Transfers"));
+        seedAllIrregularitiesTable("The transfer documents are not properly filed", findAllSubCategoryByNameAndCategoryName("Money Transfer through Money Transfer Operators (MTOs)", "Foreign Transfers"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Money Transfer through Money Transfer Operators (MTOs)", "Foreign Transfers"));
+
+        seedAllIrregularitiesTable("Timely reconciliation of the correspondent bank has not performed", findAllSubCategoryByNameAndCategoryName("Correspondent Accounts Reconciliation", "Correspondent Accounts Reconciliation"));
+        seedAllIrregularitiesTable("Long Outstanding Suspense Accounts", findAllSubCategoryByNameAndCategoryName("Correspondent Accounts Reconciliation", "Correspondent Accounts Reconciliation"));
+        seedAllIrregularitiesTable("Book difference between the correspondent account and the mirror account appears (Specify the Amount and on which account the difference appears)", findAllSubCategoryByNameAndCategoryName("Correspondent Accounts Reconciliation", "Correspondent Accounts Reconciliation"));
+        seedAllIrregularitiesTable("Abnormal balance of Suspense Accounts", findAllSubCategoryByNameAndCategoryName("Correspondent Accounts Reconciliation", "Correspondent Accounts Reconciliation"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Correspondent Accounts Reconciliation", "Correspondent Accounts Reconciliation"));
+
 
     }
+
 
     // First, define a method to find a subModule by its name
     private SubModule findSubModuleByCode(String code) {
@@ -948,7 +1166,19 @@ public class DatabaseSeeder {
             //  logger.info("SubProcess Seeding Not Required");
         }
     }
-
+    @Transactional
+    public void SeedAllTradeTypeTable(String name, SubModule subModule) {
+        String sql = "SELECT name FROM all_trade_type AC WHERE AC.name = ? and AC.sub_module_id = ? LIMIT 1";
+        List<TradeType> ac = jdbcTemplate.query(sql, new Object[]{name, subModule.getId()}, (resultSet, rowNum) -> null);
+//        List<AllCategory> ac = allCategoryService.findAllAllCategory();
+        if (ac == null || ac.size() == 0) {
+            TradeType tradeType = new TradeType(name, subModule);
+            tradeTypeRepository.save(tradeType);
+            // logger.info("SubProcess Seeded");
+        } else {
+            //  logger.info("SubProcess Seeding Not Required");
+        }
+    }
     @Transactional
     public void seedAllSubCategoriesTable(String name, AllCategory allCategory) {
         String sql = "SELECT name FROM all_sub_categories WHERE name = ? AND all_category_id = ? LIMIT 1";
