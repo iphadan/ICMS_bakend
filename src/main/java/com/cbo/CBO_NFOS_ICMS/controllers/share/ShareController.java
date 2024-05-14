@@ -47,7 +47,7 @@ public class ShareController {
 
     @GetMapping("/findBySubProcessId/{id}")
     @PreAuthorize("hasAnyRole('ICMS_SHARE_IC')")
-    public ResponseEntity<List<Share>> getAllDailyActivityGapInSpecificSubProcess(@PathVariable("id") Long subProcessId) {
+    public ResponseEntity<List<Share>> getAllShareInSpecificSubProcess(@PathVariable("id") Long subProcessId) {
         List<Share> Share;
         Share = shareService.findAllShareInSpecificSubProcess(subProcessId);
         return new ResponseEntity<>(Share, HttpStatus.OK);
