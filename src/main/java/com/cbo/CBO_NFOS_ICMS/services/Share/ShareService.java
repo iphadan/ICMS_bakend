@@ -1,4 +1,4 @@
-package com.cbo.CBO_NFOS_ICMS.services.share;
+package com.cbo.CBO_NFOS_ICMS.services.Share;
 
 import com.cbo.CBO_NFOS_ICMS.exception.ResourceNotFoundException;
 import com.cbo.CBO_NFOS_ICMS.exception.UserNotFoundException;

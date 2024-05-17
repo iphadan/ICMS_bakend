@@ -50,4 +50,24 @@ public class Trade {
     @ManyToOne
     @JoinColumn(name = "trade_status_id")
     private TradeStatus tradeStatus;
+    private String actionPlanDueDate;
+
+    @Column(length = 64)
+
+    private String approvedBy;
+    private Boolean actionTaken = false;
+    private Boolean escalatedByManager = false;
+    @ManyToOne
+    @JoinColumn(name = "finance_status_id")
+    private FinanceStatus financeStatus;
+    @ManyToOne
+    @JoinColumn(name = "branch_id")
+    private Branch branch;
+    @ManyToOne
+    @JoinColumn(name = "team_id")
+    private Team team;
+
+    @ManyToOne
+    @JoinColumn(name = "sub_process_id")
+    private SubProcess subProcess;
 }
