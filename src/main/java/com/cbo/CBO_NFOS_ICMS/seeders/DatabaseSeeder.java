@@ -12,6 +12,7 @@ import com.cbo.CBO_NFOS_ICMS.models.Finance.FinanceStatus;
 import com.cbo.CBO_NFOS_ICMS.models.IFB.ProductType;
 import com.cbo.CBO_NFOS_ICMS.models.IFR.CaseStatus;
 import com.cbo.CBO_NFOS_ICMS.models.IFR.FraudType;
+import com.cbo.CBO_NFOS_ICMS.models.share.ShareStatus;
 import com.cbo.CBO_NFOS_ICMS.repositories.*;
 import com.cbo.CBO_NFOS_ICMS.repositories.CIPMRepository.CollateralTypeRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.CIPMRepository.InsuranceCoverageTypeRepository;
@@ -26,6 +27,7 @@ import com.cbo.CBO_NFOS_ICMS.repositories.IFBRepository.ProductTypeRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.IFRRepository.CaseStatusRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.IFRRepository.FraudTypeRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.TradeRepository.TradeRepository;
+import com.cbo.CBO_NFOS_ICMS.repositories.shareRepository.ShareStatusRepository;
 import com.cbo.CBO_NFOS_ICMS.services.AllCategoryService;
 import com.cbo.CBO_NFOS_ICMS.services.AllSubCategoryService;
 import com.cbo.CBO_NFOS_ICMS.services.AllTradeTypeService;
@@ -54,6 +56,7 @@ public class DatabaseSeeder {
     private CaseStatusRepository caseStatusRepository;
     private ActivityStatusRepository activityStatusRepository;
     private FinanceStatusRepository financeStatusRepository;
+private ShareStatusRepository shareStatusRepository;
     private AllCategoryRepository allCategoryRepository;
     private FraudTypeRepository fraudTypeRepository;
     private SuspectedFraudsterProfessionRepository suspectedFraudsterProfessionRepository;
@@ -91,6 +94,7 @@ public class DatabaseSeeder {
             CaseStatusRepository caseStatusRepository,
             ActivityStatusRepository activityStatusRepository,
             FinanceStatusRepository financeStatusRepository,
+            ShareStatusRepository shareStatusRepository,
             AllCategoryRepository allCategoryRepository,
             FraudTypeRepository fraudTypeRepository,
             SuspectedFraudsterProfessionRepository suspectedFraudsterProfessionRepository,
@@ -118,6 +122,7 @@ public class DatabaseSeeder {
         this.caseStatusRepository = caseStatusRepository;
         this.activityStatusRepository = activityStatusRepository;
         this.financeStatusRepository = financeStatusRepository;
+        this.shareStatusRepository = shareStatusRepository;
         this.allCategoryRepository = allCategoryRepository;
         this.fraudTypeRepository = fraudTypeRepository;
         this.suspectedFraudsterProfessionRepository = suspectedFraudsterProfessionRepository;
@@ -194,6 +199,9 @@ public class DatabaseSeeder {
 
         seedFinanciesStatusTable("Open");
         seedFinanciesStatusTable("Closed");
+
+        seedShareStatusTable("Open");
+        seedShareStatusTable("Closed");
 
 
 
@@ -1233,6 +1241,18 @@ public class DatabaseSeeder {
         if (as == null || as.size() == 0) {
             FinanceStatus financeStatus = new FinanceStatus(name);
             financeStatusRepository.save(financeStatus);
+        } else {
+            //logger.info("Activities Status Seeding Not Required");
+        }
+    }
+
+    @Transactional
+    public void seedShareStatusTable(String name) {
+        String sql = "SELECT name FROM sharemodule_status shareS WHERE shareS.name = ? LIMIT 1";
+        List<ShareStatus> as = jdbcTemplate.query(sql, new Object[]{name}, (resultSet, rowNum) -> null);
+        if (as == null || as.size() == 0) {
+            ShareStatus shareStatus = new ShareStatus(name);
+            shareStatusRepository.save(shareStatus);
         } else {
             //logger.info("Activities Status Seeding Not Required");
         }

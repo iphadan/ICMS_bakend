@@ -73,3 +73,9 @@ Tsrc/main/java/com/cbo/CBO_NFOS_ICMS/services/DCQService/DishonoredChequeService
 ]src/main/java/com/cbo/CBO_NFOS_ICMS/controllers/DCQController/DishonoredChequeController.java,5\1\51a0377b23fb55a130d82ccbcb4e466ac484f288
 ›
 ksrc/main/java/com/cbo/CBO_NFOS_ICMS/repositories/FireExtinguisherRepository/FireExtinguisherRepository.java,7\7\777f9cfd17a6e72d1c2858965a4efcd4fe91f516
+“
+csrc/main/java/com/cbo/CBO_NFOS_ICMS/controllers/CIPMController/InsuranceCoverageTypeController.java,4\1\41056c18d24ac0ffae4910ddd42f5e650f4080e8
+z
+Jsrc/main/java/com/cbo/CBO_NFOS_ICMS/controllers/AllCategoryController.java,7\8\782c7680b064fe6f4c06395a8782f5bae2979594
+Œ
+\src/main/java/com/cbo/CBO_NFOS_ICMS/controllers/CIPMController/CollateralTypeController.java,1\4\14f540b5ec28c146cce495ee4f94a96cbb3f3617
