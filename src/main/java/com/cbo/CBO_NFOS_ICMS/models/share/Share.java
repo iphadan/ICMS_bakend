@@ -42,6 +42,9 @@ public class Share {
     private String amountInvolved;
     @Column(length = 64)
     private String responsiblePerson;
+    @Column(length = 64)
+    private String actionPlanDueDate;
+    private Boolean actionTaken = false;
 
     @ManyToOne
     @JoinColumn(name = "share_status_id")

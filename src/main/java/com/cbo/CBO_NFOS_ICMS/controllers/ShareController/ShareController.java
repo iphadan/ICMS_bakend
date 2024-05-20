@@ -1,6 +1,8 @@
 package com.cbo.CBO_NFOS_ICMS.controllers.ShareController;
 
 
+import com.cbo.CBO_NFOS_ICMS.models.Finance.Finance;
+import com.cbo.CBO_NFOS_ICMS.models.FireExtinguisher.FireExtinguisher;
 import com.cbo.CBO_NFOS_ICMS.models.share.Share;
 import com.cbo.CBO_NFOS_ICMS.services.Share.ShareService;
 import org.springframework.http.HttpStatus;
@@ -9,6 +11,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/Share")
@@ -44,7 +47,7 @@ public class ShareController {
 
 
     @GetMapping("/findBySubProcessId/{id}")
-    @PreAuthorize("hasAnyRole('ICMS_SHARE_IC')")
+    @PreAuthorize("hasAnyRole('ICMS_SHARE_IC','ICMS_SHARE_OWNER')")
     public ResponseEntity<List<Share>> getAllShareInSpecificSubProcess(@PathVariable("id") Long subProcessId) {
         List<Share> Share;
         Share = shareService.findAllShareInSpecificSubProcess(subProcessId);
@@ -67,7 +70,6 @@ public class ShareController {
             caseId = incrementCaseId(caseId);
         }
         share.setCaseId(caseId);
-        System.out.println(caseId);
         Share newShare = shareService.addShare(share);
         return new ResponseEntity<>(newShare, HttpStatus.CREATED);
     }
@@ -103,6 +105,20 @@ public class ShareController {
     public ResponseEntity<?> deleteShare(@PathVariable("id") Long id) {
         shareService.deleteShare(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasAnyRole('ICMS_SHARE_OWNER')")
+    @PatchMapping("/approveActionPlan/{id}")
+    public ResponseEntity<Share> approveActionPlan(@PathVariable Long id, @RequestBody Share share) {
+        try {
+            if (!id.equals(share.getId())) {
+                throw new IllegalArgumentException("ID in the path variable and share object must match");
+            }
+            Share updatedShare = shareService.approveActionPlan(share);
+            return ResponseEntity.ok(updatedShare);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
 }
