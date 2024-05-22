@@ -32,6 +32,8 @@ public class Trade {
     @ManyToOne
     @JoinColumn(name = "all_sub_category_id")
     private AllSubCategory allSubCategory;
+    @Column(length = 64)
+    private String actionPlanDueDate;
     @ManyToOne
     @JoinColumn(name = "trade_type")
     private TradeType tradeType;
@@ -50,16 +52,14 @@ public class Trade {
     @ManyToOne
     @JoinColumn(name = "trade_status_id")
     private TradeStatus tradeStatus;
-    private String actionPlanDueDate;
+
 
     @Column(length = 64)
 
     private String approvedBy;
     private Boolean actionTaken = false;
     private Boolean escalatedByManager = false;
-    @ManyToOne
-    @JoinColumn(name = "finance_status_id")
-    private FinanceStatus financeStatus;
+
     @ManyToOne
     @JoinColumn(name = "branch_id")
     private Branch branch;

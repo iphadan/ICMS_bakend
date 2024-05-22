@@ -24,7 +24,16 @@ public class AllTradeTypeService {
 
     public List<TradeType> findAllTradeType() {
         return allTradeTypeRepository.findAll();
+
     }
+
+
+    public List<TradeType> findAllTradeTypeBySubModuleName(String name) {
+        List<TradeType> allTradeTypes = allTradeTypeRepository.findAll();
+        allTradeTypes.removeIf(tradeType -> !tradeType.getSubModule().getCode().equals(name));
+        return allTradeTypes;
+    }
+
 
 
 }

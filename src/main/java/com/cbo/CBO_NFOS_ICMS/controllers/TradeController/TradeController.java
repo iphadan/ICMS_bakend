@@ -27,7 +27,7 @@ public class TradeController {
 
 
     @GetMapping("/getAll")
- @PreAuthorize("hasAnyRole('TSIPM_TRADE_OWNER')")
+ @PreAuthorize("hasAnyRole('ICMS_TRADE_OWNER')")
     public ResponseEntity<List<Trade>> getAllTrade() {
         List<Trade> trades = tradeService.findAllTrade();
         return new ResponseEntity<>(trades, HttpStatus.OK);
@@ -41,7 +41,7 @@ public class TradeController {
     }
 
     @PostMapping("/add")
-    @PreAuthorize("hasAnyRole('TSIPM_TRADE_IC')")
+    @PreAuthorize("hasAnyRole('ICMS_TRADE_IC')")
     public ResponseEntity<Trade> addTrade
             (@RequestBody Trade trade) {
         LocalDate date = LocalDate.now();
@@ -78,17 +78,17 @@ public class TradeController {
     }
 
     @PutMapping("/update")
-    @PreAuthorize("hasAnyRole('TSIPM_TRADE_IC')")
-    public ResponseEntity<Trade> updateIFB
+    @PreAuthorize("hasAnyRole('ICMS_TRADE_IC')")
+    public ResponseEntity<Trade> updateTrade
             (@RequestBody Trade trade) {
-        System.out.println(trade.getFinanceStatus());
+        System.out.println(trade.getTradeStatus());
         Trade updateTrade = tradeService.updateTrade(trade);
         return new ResponseEntity<>(trade, HttpStatus.CREATED);
 
     }
 //
     @GetMapping("/getSize")
-    @PreAuthorize("hasAnyRole('TSIPM_TRADE_IC')")
+    @PreAuthorize("hasAnyRole('ICMS_TRADE_IC')")
     public int getTradeSize() {
         return tradeService.findTradeSize();
     }
@@ -101,9 +101,10 @@ public class TradeController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PreAuthorize("hasAnyRole('TSIPM_TRADE_OWNER')")
+    @PreAuthorize("hasAnyRole('ICMS_TRADE_OWNER')")
     @PatchMapping("/approveActionPlan/{id}")
     public ResponseEntity<Trade> approveActionPlan(@PathVariable Long id, @RequestBody Trade trade) {
+
         try {
             if (!id.equals(trade.getId())) {
                 throw new IllegalArgumentException("ID in the path variable and trade object must match");
@@ -117,7 +118,7 @@ public class TradeController {
 //
 //
     @PatchMapping("/escalate/{id}")
-    @PreAuthorize("hasAnyRole('TSIPM_TRADE_IC')")
+    @PreAuthorize("hasAnyRole('ICMS_TRADE_IC')")
     public ResponseEntity<Trade>escalatePlan(@PathVariable("id") Long id)
     {
         try
@@ -132,7 +133,7 @@ public class TradeController {
     }
 //
     @GetMapping("/findByOrganizationalUnitId/{id}")
-    @PreAuthorize("hasAnyRole('TSIPM_TRADE_IC')")
+    @PreAuthorize("hasAnyRole('ICMS_TRADE_IC')")
     public ResponseEntity<List<Trade>> getAllFinanceInSpecificOrganizationalUnit(@PathVariable("id") Long id) {
         List<Finance> Finance;
         List<Trade> trades = tradeService.findAllTradeInSpecificOrganizationalUnit(id);
@@ -140,7 +141,7 @@ public class TradeController {
     }
 //
     @GetMapping("/findBySubProcessId/{id}")
-    @PreAuthorize("hasAnyRole('TSIPM_TRADE_IC')")
+    @PreAuthorize("hasAnyRole('ICMS_TRADE_IC')")
     public ResponseEntity<List<Trade>> getAllFinanceInSpecificSubProcess(@PathVariable("id") Long subProcessId) {
         List<Trade> trades;
         trades = tradeService.findAllFinanceSubProcess(subProcessId);
