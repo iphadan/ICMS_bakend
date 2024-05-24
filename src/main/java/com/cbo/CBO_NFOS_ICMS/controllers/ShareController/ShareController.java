@@ -1,10 +1,10 @@
-package com.cbo.CBO_NFOS_ICMS.controllers.share;
+package com.cbo.CBO_NFOS_ICMS.controllers.ShareController;
 
 
 import com.cbo.CBO_NFOS_ICMS.models.Finance.Finance;
 import com.cbo.CBO_NFOS_ICMS.models.FireExtinguisher.FireExtinguisher;
 import com.cbo.CBO_NFOS_ICMS.models.share.Share;
-import com.cbo.CBO_NFOS_ICMS.services.share.ShareService;
+import com.cbo.CBO_NFOS_ICMS.services.Share.ShareService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;

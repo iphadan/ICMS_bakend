@@ -65,41 +65,42 @@ private final TradeRepository tradeRepository;
     public List<Trade> findAllTrade() {
         return tradeRepository.findAll();
     }
-//    public List<Trade> findAllFinanceSubProcess(Long subProcessId) {
-//        return financeRepository.findFinanceBySubProcessId(subProcessId);
-//    }
-//
-//    public Finance approveActionPlan(Finance finance) {
-//        Finance row = financeRepository.findById(finance.getId())
-//                .orElseThrow(() -> new UserNotFoundException("Finance by id = " + finance.getId() + " was not found"));
-//        row.setActionPlanDueDate(finance.getActionPlanDueDate());
-//
-//        row.setActionTaken(true);
-//        return financeRepository.save(row);
-//    }
-//
-//
-//    public Finance escalatePlan(Long id) {
-//        Finance row = financeRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Finance by id = " + id + " was not found"));
-//        row.setEscalatedByManager(true);
-//        return financeRepository.save(row);
-//    }
-//
-//    public List<Finance> findAllFinanceInSpecificOrganizationalUnit(Long id) {
-//
-//        return financeRepository.findFinanceByTeamId(id);
-//    }
-//
-//    public List<Finance> findAllFinanceInSpecificSubProcess(Long subProcessId) {
-//        return financeRepository.findFinanceBySubProcessId(subProcessId);
-//    }
-//
-//    public boolean isCaseIdExists(String caseId) {
-//        return financeRepository.existsByCaseId(caseId);
-//    }
-//
-//    public int findFinanceSize() {
-//        return financeRepository.findAll().size();
-//    }
+
+    public List<Trade> findAllFinanceSubProcess(Long subProcessId) {
+        return tradeRepository.findTradeBySubProcessId(subProcessId);
+    }
+
+    public Trade approveActionPlan(Trade trade) {
+        Trade row = tradeRepository.findById(trade.getId())
+                .orElseThrow(() -> new UserNotFoundException("Trade by id = " + trade.getId() + " was not found"));
+        row.setActionPlanDueDate(trade.getActionPlanDueDate());
+
+        row.setActionTaken(true);
+        return tradeRepository.save(row);
+    }
+
+
+    public Trade escalatePlan(Long id) {
+        Trade row = tradeRepository.findById(id).orElseThrow(() -> new UserNotFoundException("Trade by id = " + id + " was not found"));
+        row.setEscalatedByManager(true);
+        return tradeRepository.save(row);
+    }
+
+    public List<Trade> findAllTradeInSpecificOrganizationalUnit(Long id) {
+
+        return tradeRepository.findFinanceByTeamId(id);
+    }
+
+    public List<Trade> findAllTradeInSpecificSubProcess(Long subProcessId) {
+        return tradeRepository.findTradeBySubProcessId(subProcessId);
+    }
+
+    public boolean isCaseIdExists(String caseId) {
+        return tradeRepository.existsByCaseId(caseId);
+    }
+
+    public int findTradeSize() {
+        return tradeRepository.findAll().size();
+    }
 
 }

@@ -56,6 +56,17 @@ public class CollateralInsurancePolicy {
     @Column(length = 64)
     private String sumInsured;
     @Column(length = 64)
+    private String insuranceCompanyName;
+    @Column(length = 64)
+    private String Bbranch;
+
+    @Column(length = 64)
+    private String insuranceBranch;
+
+    @Column(length = 64)
+    private String insuranceDistrict;
+
+    @Column(length = 64)
     private String collateralEstimationValue;
     @Column(length = 64)
     private String insuranceExpireDate;

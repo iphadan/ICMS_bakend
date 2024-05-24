@@ -12,6 +12,7 @@ import com.cbo.CBO_NFOS_ICMS.models.Finance.FinanceStatus;
 import com.cbo.CBO_NFOS_ICMS.models.IFB.ProductType;
 import com.cbo.CBO_NFOS_ICMS.models.IFR.CaseStatus;
 import com.cbo.CBO_NFOS_ICMS.models.IFR.FraudType;
+import com.cbo.CBO_NFOS_ICMS.models.Trade.TradeStatus;
 import com.cbo.CBO_NFOS_ICMS.models.share.ShareStatus;
 import com.cbo.CBO_NFOS_ICMS.repositories.*;
 import com.cbo.CBO_NFOS_ICMS.repositories.CIPMRepository.CollateralTypeRepository;
@@ -27,6 +28,7 @@ import com.cbo.CBO_NFOS_ICMS.repositories.IFBRepository.ProductTypeRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.IFRRepository.CaseStatusRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.IFRRepository.FraudTypeRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.TradeRepository.TradeRepository;
+import com.cbo.CBO_NFOS_ICMS.repositories.TradeRepository.TradeStatusRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.shareRepository.ShareStatusRepository;
 import com.cbo.CBO_NFOS_ICMS.services.AllCategoryService;
 import com.cbo.CBO_NFOS_ICMS.services.AllSubCategoryService;
@@ -56,6 +58,7 @@ public class DatabaseSeeder {
     private CaseStatusRepository caseStatusRepository;
     private ActivityStatusRepository activityStatusRepository;
     private FinanceStatusRepository financeStatusRepository;
+   private TradeStatusRepository tradeStatusRepository;
 private ShareStatusRepository shareStatusRepository;
     private AllCategoryRepository allCategoryRepository;
     private FraudTypeRepository fraudTypeRepository;
@@ -96,6 +99,7 @@ private ShareStatusRepository shareStatusRepository;
             FinanceStatusRepository financeStatusRepository,
             ShareStatusRepository shareStatusRepository,
             AllCategoryRepository allCategoryRepository,
+            TradeStatusRepository tradeStatusRepository,
             FraudTypeRepository fraudTypeRepository,
             SuspectedFraudsterProfessionRepository suspectedFraudsterProfessionRepository,
             SubModuleRepository subModuleRepository,
@@ -131,11 +135,12 @@ private ShareStatusRepository shareStatusRepository;
         this.allCategoryService = allCategoryService;
         this.allSubCategoryService = allSubCategoryService;
         this.allIrregularityRepository = allIrregularityRepository;
+        this.tradeStatusRepository = tradeStatusRepository;
     }
 
     @PostConstruct
     public void seed() {
-
+        System.out.println("seeding started");
         // TYPES
         seedCollateralType("Premises and Buildings/Houses");
         seedCollateralType("Motor Vehicles");
@@ -199,6 +204,9 @@ private ShareStatusRepository shareStatusRepository;
 
         seedFinanciesStatusTable("Open");
         seedFinanciesStatusTable("Closed");
+
+        seedTradeStatusTable("Open");
+        seedTradeStatusTable("Closed");
 
         seedShareStatusTable("Open");
         seedShareStatusTable("Closed");
@@ -916,6 +924,18 @@ private ShareStatusRepository shareStatusRepository;
         seedAllIrregularitiesTable("Proper accounting entry is not passed for the export via ODBP (Specify the wrong entry)", findAllSubCategoryByNameAndCategoryName("Export LC", "Export"));
         seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Export LC", "Export"));
 
+        //Export CAD
+        seedAllIrregularitiesTable("The customer is under delinquent list", findAllSubCategoryByNameAndCategoryName("CAD", "Export"));
+        seedAllIrregularitiesTable("The covering letter is inconsistent with the CAD Documents (Specify the Inconsistency of document)", findAllSubCategoryByNameAndCategoryName("CAD", "Export"));
+        seedAllIrregularitiesTable("The export permit to export the item is invalid as per the NBE requirement (specify)", findAllSubCategoryByNameAndCategoryName("CAD", "Export"));
+        seedAllIrregularitiesTable("The export permit is not in line with the terms and condition of the sales contract", findAllSubCategoryByNameAndCategoryName("CAD", "Export"));
+        seedAllIrregularitiesTable("The amendment of the CAD is not consented by the exporter", findAllSubCategoryByNameAndCategoryName("CAD", "Export"));
+        seedAllIrregularitiesTable("Proper accounting entry is not passed (specify the wrong entry including the amount involved)", findAllSubCategoryByNameAndCategoryName("CAD", "Export"));
+        seedAllIrregularitiesTable("The SWIFT message/s are not in line with export CAD terms and condition or the related document of the (specify)", findAllSubCategoryByNameAndCategoryName("CAD", "Export"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("CAD", "Export"));
+
+
+
         seedAllIrregularitiesTable("The customer is under delinquent list", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Export"));
         seedAllIrregularitiesTable("The advance payment was not made (Specify the amount)", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Export"));
         seedAllIrregularitiesTable("The FCY cash received is exchanged after 24 hours", findAllSubCategoryByNameAndCategoryName("Advance Payment", "Export"));
@@ -1002,6 +1022,7 @@ private ShareStatusRepository shareStatusRepository;
         seedAllIrregularitiesTable("Abnormal balance of Suspense Accounts", findAllSubCategoryByNameAndCategoryName("Correspondent Accounts Reconciliation", "Correspondent Accounts Reconciliation"));
         seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Correspondent Accounts Reconciliation", "Correspondent Accounts Reconciliation"));
 
+        System.out.println("seeding end");
 
     }
 
@@ -1236,6 +1257,7 @@ private ShareStatusRepository shareStatusRepository;
 
     @Transactional
     public void seedFinanciesStatusTable(String name) {
+
         String sql = "SELECT name FROM financies_status financeS WHERE financeS.name = ? LIMIT 1";
         List<FinanceStatus> as = jdbcTemplate.query(sql, new Object[]{name}, (resultSet, rowNum) -> null);
         if (as == null || as.size() == 0) {
@@ -1245,7 +1267,18 @@ private ShareStatusRepository shareStatusRepository;
             //logger.info("Activities Status Seeding Not Required");
         }
     }
-
+    @Transactional
+    public void seedTradeStatusTable(String name) {
+        System.out.println("seeding trade status");
+        String sql = "SELECT name FROM trade_service_status tradeS  WHERE tradeS.name = ? LIMIT 1";
+        List<TradeStatus> as = jdbcTemplate.query(sql, new Object[]{name}, (resultSet, rowNum) -> null);
+        if (as == null || as.size() == 0) {
+            TradeStatus tradeStatus = new TradeStatus(name);
+            tradeStatusRepository.save(tradeStatus);
+        } else {
+            //logger.info("Activities Status Seeding Not Required");
+        }
+    }
     @Transactional
     public void seedShareStatusTable(String name) {
         String sql = "SELECT name FROM sharemodule_status shareS WHERE shareS.name = ? LIMIT 1";
