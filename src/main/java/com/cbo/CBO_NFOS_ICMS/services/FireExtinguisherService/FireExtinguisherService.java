@@ -45,6 +45,7 @@ public class FireExtinguisherService {
         if (optionalFireExtinguisher.isPresent()) {
             FireExtinguisher existingFireExtinguisher = optionalFireExtinguisher.get();
             existingFireExtinguisher.setStatus(fireExtinguisher.getStatus());
+            existingFireExtinguisher.setNextInspectionDate(fireExtinguisher.getNextInspectionDate());
             return fireExtinguisherRepository.save(existingFireExtinguisher);
         } else {
             throw new ResourceNotFoundException("FireExtinguisher not found");

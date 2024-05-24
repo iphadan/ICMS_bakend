@@ -12,7 +12,6 @@ public interface ShareRepository extends JpaRepository<Share, Long> {
     void deleteShareById(Long id);
 
     Optional<Share> findShareById(Long id);
-
     List<Share> findShareByBranchId(Long id);
     List<Share> findShareBySubProcessId(Long subProcessId);
     List<Share> findShareByTeamId(Long id);

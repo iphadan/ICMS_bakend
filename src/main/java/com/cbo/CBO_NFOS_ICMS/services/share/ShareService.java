@@ -3,6 +3,7 @@ package com.cbo.CBO_NFOS_ICMS.services.share;
 import com.cbo.CBO_NFOS_ICMS.exception.ResourceNotFoundException;
 import com.cbo.CBO_NFOS_ICMS.exception.UserNotFoundException;
 
+import com.cbo.CBO_NFOS_ICMS.models.Finance.Finance;
 import com.cbo.CBO_NFOS_ICMS.models.share.Share;
 import com.cbo.CBO_NFOS_ICMS.repositories.shareRepository.ShareRepository;
 import com.cbo.CBO_NFOS_ICMS.services.UserAndEmployeeService.BranchService;
@@ -40,6 +41,14 @@ public class ShareService {
         return shareRepository.findAll();
     }
 
+    public Share approveActionPlan(Share share) {
+        Share row = shareRepository.findById(share.getId())
+                .orElseThrow(() -> new UserNotFoundException("Share by id = " + share.getId() + " was not found"));
+        row.setActionPlanDueDate(share.getActionPlanDueDate());
+
+        row.setActionTaken(true);
+        return shareRepository.save(row);
+    }
     public boolean isCaseIdExists(String caseId) {
         return shareRepository.existsByCaseId(caseId);
     }
@@ -53,6 +62,7 @@ public class ShareService {
         if (optionalShare.isPresent()) {
             Share existingShare = optionalShare.get();
             existingShare.setShareStatus(share.getShareStatus());
+            existingShare.setShareDate(share.getShareDate()); // Add this line
             return shareRepository.save(existingShare);
         } else {
             throw new ResourceNotFoundException("Share not found");

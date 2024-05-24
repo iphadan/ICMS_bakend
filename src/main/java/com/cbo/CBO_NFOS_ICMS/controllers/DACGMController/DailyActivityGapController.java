@@ -68,7 +68,6 @@ public class DailyActivityGapController {
             caseId = incrementCaseId(caseId);
         }
         dACGM.setCaseId(caseId);
-        System.out.println(caseId);
         DailyActivityGapControl newDailyActivityGapControl = dACGMService.addDACGM(dACGM);
         return new ResponseEntity<>(newDailyActivityGapControl, HttpStatus.CREATED);
     }

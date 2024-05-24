@@ -35,7 +35,7 @@ public class FinanceController {
     }
 
     @GetMapping("/find/{id}")
-    public ResponseEntity<Finance> getIFBId
+    public ResponseEntity<Finance> getFinanceId
             (@PathVariable("id") Long id) {
         Finance Finance = financeService.findFinanceById(id);
         return new ResponseEntity<>(Finance, HttpStatus.OK);
@@ -80,7 +80,6 @@ public class FinanceController {
     @PreAuthorize("hasAnyRole('ICMS_FINANCE_IC')")
     public ResponseEntity<Finance> updateIFB
             (@RequestBody Finance finance) {
-        System.out.println(finance.getFinanceStatus());
         Finance updateFinance = financeService.updateFinance(finance);
         return new ResponseEntity<>(updateFinance, HttpStatus.CREATED);
 
@@ -141,7 +140,7 @@ public class FinanceController {
     }
 
     @GetMapping("/findBySubProcessId/{id}")
-    @PreAuthorize("hasAnyRole('ICMS_FINANCE_IC')")
+    @PreAuthorize("hasAnyRole('ICMS_FINANCE_IC', 'ICMS_FINANCE_OWNER')")
     public ResponseEntity<List<Finance>> getAllFinanceInSpecificSubProcess(@PathVariable("id") Long subProcessId) {
         List<Finance> Finance;
         Finance = financeService.findAllFinanceInSpecificSubProcess(subProcessId);

@@ -111,12 +111,5 @@ public class DishonoredChequeController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-/*    @GetMapping("/three-times-in-last-week-list")
-    @PreAuthorize("hasAnyRole('ICMS_ADMIN')")
-    public ResponseEntity<List<DishonoredCheque>> getDishonouredChequesThreeTimesInLastWeek() {
-        List<DishonoredCheque> dishonoredCheques = dishonoredChequeService.getDishonouredChequesThreeTimesInLastWeek();
-        return ResponseEntity.ok(dishonoredCheques);
-    }*/
-
     }
 

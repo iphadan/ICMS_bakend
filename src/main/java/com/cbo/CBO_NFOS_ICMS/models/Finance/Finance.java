@@ -39,11 +39,11 @@ public class Finance {
     @ManyToOne
     @JoinColumn(name = "all_sub_category_id")
     private AllSubCategory allSubCategory;
-    @Column( length = 64)
+    @Column( length = 1000)
     private String irregularity;
     @Column( length = 64)
     private String amount;
-    @Column( length = 64)
+    @Column( length = 1000)
     private String responsiblePerson;
     @Column(length = 64)
     private String actionPlanDueDate;
