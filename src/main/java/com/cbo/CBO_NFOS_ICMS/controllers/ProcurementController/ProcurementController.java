@@ -28,7 +28,7 @@ public class ProcurementController {
     }
 
     @GetMapping("/getAll")
-//    @PreAuthorize("hasAnyRole('ICMS_PROCUREMENT_OWNER')")
+    @PreAuthorize("hasAnyRole('ICMS_PROCUREMENT_OWNER')")
     public ResponseEntity<List<Procurement>> getProcurement() {
         List<Procurement> Procurement = procurementService.findAllProcurement();
         return new ResponseEntity<>(Procurement, HttpStatus.OK);
@@ -43,7 +43,7 @@ public class ProcurementController {
     }
 
     @PostMapping("/add")
-//    @PreAuthorize("hasAnyRole('ICMS_PROCUREMENT_IC')")
+    @PreAuthorize("hasAnyRole('ICMS_PROCUREMENT_IC')")
     public ResponseEntity<Procurement> addProcurement
             (@RequestBody Procurement procurement) {
         LocalDate date = LocalDate.now();

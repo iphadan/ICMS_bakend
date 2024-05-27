@@ -31,7 +31,7 @@ public class ProcurementStatusController {
     @GetMapping("/find/{id}")
     public ResponseEntity<ProcurementStatus> getAllProcurementInSpecificOrganizationalUnit(@PathVariable("id") Long id) {
         ProcurementStatus procurementStatus = procurementStatusService.findProcurementStatusById(id);
-        return new ResponseEntity<>(ProcurementStatus, HttpStatus.OK);
+        return new ResponseEntity<>(procurementStatus, HttpStatus.OK);
     }
 
 }
