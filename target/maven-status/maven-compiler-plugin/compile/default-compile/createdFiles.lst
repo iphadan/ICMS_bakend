@@ -27,9 +27,11 @@ com\cbo\CBO_NFOS_ICMS\services\IFBService\ProductTypeService.class
 com\cbo\CBO_NFOS_ICMS\repositories\UserAndEmployeeRepository\SubProcessRepository.class
 com\cbo\CBO_NFOS_ICMS\models\FireExtinguisher\FireExtinguisher.class
 com\cbo\CBO_NFOS_ICMS\models\UserAndEmployee\Module.class
+com\cbo\CBO_NFOS_ICMS\repositories\ProcurementRepository\ProcurementStatusRepository.class
 com\cbo\CBO_NFOS_ICMS\controllers\AllCategoryController.class
 com\cbo\CBO_NFOS_ICMS\repositories\IFRRepository\IncidentOrFraudRepository.class
 com\cbo\CBO_NFOS_ICMS\controllers\IFRController\CaseStatusController.class
+com\cbo\CBO_NFOS_ICMS\models\Procurement\Procurement.class
 com\cbo\CBO_NFOS_ICMS\models\DCQ\ChequeType.class
 com\cbo\CBO_NFOS_ICMS\models\CIPM\CollateralType.class
 com\cbo\CBO_NFOS_ICMS\services\UserAndEmployeeService\BranchService.class
@@ -45,8 +47,10 @@ com\cbo\CBO_NFOS_ICMS\services\IFRService\FraudTypeService.class
 com\cbo\CBO_NFOS_ICMS\models\UserAndEmployee\SubProcess.class
 com\cbo\CBO_NFOS_ICMS\services\IFBService\IFBService.class
 com\cbo\CBO_NFOS_ICMS\repositories\CIPMRepository\StatusRepository.class
+com\cbo\CBO_NFOS_ICMS\services\ProcurementService\ProcurementStatusService.class
 com\cbo\CBO_NFOS_ICMS\models\CIPM\Status.class
 com\cbo\CBO_NFOS_ICMS\services\UserAndEmployeeService\SubModuleService.class
+com\cbo\CBO_NFOS_ICMS\repositories\ProcurementRepository\ProcurementRepository.class
 com\cbo\CBO_NFOS_ICMS\models\UserAndEmployee\LocationGroup.class
 com\cbo\CBO_NFOS_ICMS\controllers\DCQController\ChequeTypeController.class
 com\cbo\CBO_NFOS_ICMS\models\CIPM\SuspectedFraudsterProfession.class
@@ -72,6 +76,7 @@ com\cbo\CBO_NFOS_ICMS\configuration\CorsConfiguration.class
 com\cbo\CBO_NFOS_ICMS\services\dashboardService\DashboardDistrictIcService.class
 com\cbo\CBO_NFOS_ICMS\repositories\IFBRepository\IfbStatusRepository.class
 com\cbo\CBO_NFOS_ICMS\repositories\UserAndEmployeeRepository\BranchRepository.class
+com\cbo\CBO_NFOS_ICMS\models\Procurement\ProcurementStatus.class
 com\cbo\CBO_NFOS_ICMS\repositories\DCQRepository\ActionTakenRepository.class
 com\cbo\CBO_NFOS_ICMS\controllers\CIPMController\StatusController.class
 com\cbo\CBO_NFOS_ICMS\configuration\CorsConfiguration$1.class
@@ -81,6 +86,7 @@ com\cbo\CBO_NFOS_ICMS\services\UserAndEmployeeService\SubProcessService.class
 com\cbo\CBO_NFOS_ICMS\services\IFBService\IfbStatusService.class
 com\cbo\CBO_NFOS_ICMS\controllers\AllSubCategoryController.class
 com\cbo\CBO_NFOS_ICMS\models\IFB\IfbStatus.class
+com\cbo\CBO_NFOS_ICMS\controllers\ProcurementController\ProcurementController.class
 com\cbo\CBO_NFOS_ICMS\repositories\shareRepository\ShareRepository.class
 com\cbo\CBO_NFOS_ICMS\controllers\IFRController\IncidentOrFraudController.class
 com\cbo\CBO_NFOS_ICMS\models\IFR\CaseStatus.class
@@ -106,7 +112,7 @@ com\cbo\CBO_NFOS_ICMS\models\dashboard\DashboardDTOBranchIc.class
 com\cbo\CBO_NFOS_ICMS\repositories\AllIrregularityRepository.class
 com\cbo\CBO_NFOS_ICMS\repositories\IFBRepository\ProductTypeRepository.class
 com\cbo\CBO_NFOS_ICMS\repositories\IFRRepository\CaseStatusRepository.class
-com\cbo\CBO_NFOS_ICMS\controllers\share\ShareController.class
+com\cbo\CBO_NFOS_ICMS\services\ProcurementService\ProcurementService.class
 com\cbo\CBO_NFOS_ICMS\exception\UserNotFoundException.class
 com\cbo\CBO_NFOS_ICMS\models\UserAndEmployee\Process.class
 com\cbo\CBO_NFOS_ICMS\services\CIPMService\SuspectedFraudsterProfessionService.class
