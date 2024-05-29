@@ -27,7 +27,7 @@ public class TradeController {
 
 
     @GetMapping("/getAll")
- @PreAuthorize("hasAnyRole('ICMS_TRADE_OWNER')")
+ @PreAuthorize("hasAnyRole('ICMS_TRADE_OWNER','ICMS_ADMIN')")
     public ResponseEntity<List<Trade>> getAllTrade() {
         List<Trade> trades = tradeService.findAllTrade();
         return new ResponseEntity<>(trades, HttpStatus.OK);
@@ -95,7 +95,7 @@ public class TradeController {
 //
 //
     @DeleteMapping("/delete/{id}")
-    @PreAuthorize("hasRole('TSIPM_ADMIN')")
+    @PreAuthorize("hasRole('ICMS_ADMIN')")
     public ResponseEntity<?> deleteTrade(@PathVariable("id") Long id) {
         tradeService.deleteTrade(id);
         return new ResponseEntity<>(HttpStatus.OK);
@@ -141,7 +141,7 @@ public class TradeController {
     }
 //
     @GetMapping("/findBySubProcessId/{id}")
-    @PreAuthorize("hasAnyRole('ICMS_TRADE_IC')")
+    @PreAuthorize("hasAnyRole('ICMS_TRADE_IC','ICMS_TRADE_OWNER')")
     public ResponseEntity<List<Trade>> getAllFinanceInSpecificSubProcess(@PathVariable("id") Long subProcessId) {
         List<Trade> trades;
         trades = tradeService.findAllFinanceSubProcess(subProcessId);
