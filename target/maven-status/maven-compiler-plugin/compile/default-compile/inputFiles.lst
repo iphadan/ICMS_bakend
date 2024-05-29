@@ -14,7 +14,7 @@ D:\Projects\Spring\ICMS\src\main\java\com\cbo\CBO_NFOS_ICMS\services\Procurement
 D:\Projects\Spring\ICMS\src\main\java\com\cbo\CBO_NFOS_ICMS\exception\ResourceNotFoundException.java
 D:\Projects\Spring\ICMS\src\main\java\com\cbo\CBO_NFOS_ICMS\controllers\ShareController\ShareController.java
 D:\Projects\Spring\ICMS\src\main\java\com\cbo\CBO_NFOS_ICMS\services\FireExtinguisherService\FireExtinguisherStatusService.java
-D:\Projects\Spring\ICMS\src\main\java\com\cbo\CBO_NFOS_ICMS\services\Share\ShareService.java
+D:\Projects\Spring\ICMS\src\main\java\com\cbo\CBO_NFOS_ICMS\services\share\ShareService.java
 D:\Projects\Spring\ICMS\src\main\java\com\cbo\CBO_NFOS_ICMS\models\TradeType.java
 D:\Projects\Spring\ICMS\src\main\java\com\cbo\CBO_NFOS_ICMS\models\UserAndEmployee\Job.java
 D:\Projects\Spring\ICMS\src\main\java\com\cbo\CBO_NFOS_ICMS\repositories\shareRepository\ShareRepository.java
@@ -96,7 +96,7 @@ D:\Projects\Spring\ICMS\src\main\java\com\cbo\CBO_NFOS_ICMS\repositories\AllSubC
 D:\Projects\Spring\ICMS\src\main\java\com\cbo\CBO_NFOS_ICMS\controllers\IFBController\ProductTypeController.java
 D:\Projects\Spring\ICMS\src\main\java\com\cbo\CBO_NFOS_ICMS\repositories\FinanceRepository\FinanceStatusRepository.java
 D:\Projects\Spring\ICMS\src\main\java\com\cbo\CBO_NFOS_ICMS\controllers\TradeController\TradeStatusController.java
-D:\Projects\Spring\ICMS\src\main\java\com\cbo\CBO_NFOS_ICMS\services\Share\ShareStatusService.java
+D:\Projects\Spring\ICMS\src\main\java\com\cbo\CBO_NFOS_ICMS\services\share\ShareStatusService.java
 D:\Projects\Spring\ICMS\src\main\java\com\cbo\CBO_NFOS_ICMS\models\CIPM\CollateralInsurancePolicy.java
 D:\Projects\Spring\ICMS\src\main\java\com\cbo\CBO_NFOS_ICMS\controllers\DCQController\ChequeTypeController.java
 D:\Projects\Spring\ICMS\src\main\java\com\cbo\CBO_NFOS_ICMS\models\Trade\TradeStatus.java

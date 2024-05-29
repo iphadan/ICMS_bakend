@@ -1,9 +1,8 @@
-package com.cbo.CBO_NFOS_ICMS.services.Share;
+package com.cbo.CBO_NFOS_ICMS.services.share;
 
 import com.cbo.CBO_NFOS_ICMS.exception.ResourceNotFoundException;
 import com.cbo.CBO_NFOS_ICMS.exception.UserNotFoundException;
 
-import com.cbo.CBO_NFOS_ICMS.models.Finance.Finance;
 import com.cbo.CBO_NFOS_ICMS.models.share.Share;
 import com.cbo.CBO_NFOS_ICMS.repositories.shareRepository.ShareRepository;
 import com.cbo.CBO_NFOS_ICMS.services.UserAndEmployeeService.BranchService;

@@ -1,17 +1,14 @@
 package com.cbo.CBO_NFOS_ICMS.controllers.ShareController;
 
 
-import com.cbo.CBO_NFOS_ICMS.models.Finance.Finance;
-import com.cbo.CBO_NFOS_ICMS.models.FireExtinguisher.FireExtinguisher;
 import com.cbo.CBO_NFOS_ICMS.models.share.Share;
-import com.cbo.CBO_NFOS_ICMS.services.Share.ShareService;
+import com.cbo.CBO_NFOS_ICMS.services.share.ShareService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/Share")
