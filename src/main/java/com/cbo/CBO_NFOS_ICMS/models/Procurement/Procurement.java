@@ -37,17 +37,17 @@ public class Procurement {
     private AllSubCategory allSubCategory;
 
     @Column(length = 64)
-    private String reference_number;
+    private String referenceNumber;
 
     @Column(length = 64)
-    private String customer_name;
+    private String customerName;
 
     @ManyToOne
     @JoinColumn(name = "all_irregularity_id")
-    private AllIrregularity allirregularity;
+    private AllIrregularity irregularity;
 
     @Column( length = 64)
-    private String amount_involved;
+    private String amountInvolved;
 
     @Column( length = 64)
     private String responsiblePerson;

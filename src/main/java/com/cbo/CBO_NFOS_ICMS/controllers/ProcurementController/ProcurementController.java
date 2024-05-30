@@ -57,6 +57,7 @@ public class ProcurementController {
         }
         procurement.setCaseId(caseId);
         Procurement newProcurement = procurementService.addProcurement(procurement);
+        System.out.println(procurement.getProcurementDate());
         return new ResponseEntity<>(newProcurement, HttpStatus.CREATED);
     }
 
