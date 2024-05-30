@@ -9,6 +9,7 @@ import com.cbo.CBO_NFOS_ICMS.models.DACGM.ActivityStatus;
 import com.cbo.CBO_NFOS_ICMS.models.DCQ.ActionTaken;
 import com.cbo.CBO_NFOS_ICMS.models.DCQ.ChequeType;
 import com.cbo.CBO_NFOS_ICMS.models.Finance.FinanceStatus;
+import com.cbo.CBO_NFOS_ICMS.models.Procurement.ProcurementStatus;
 import com.cbo.CBO_NFOS_ICMS.models.IFB.ProductType;
 import com.cbo.CBO_NFOS_ICMS.models.IFR.CaseStatus;
 import com.cbo.CBO_NFOS_ICMS.models.IFR.FraudType;
@@ -23,6 +24,7 @@ import com.cbo.CBO_NFOS_ICMS.repositories.DACGMRepository.ActivityStatusReposito
 import com.cbo.CBO_NFOS_ICMS.repositories.DCQRepository.ActionTakenRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.DCQRepository.ChequeTypeRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.FinanceRepository.FinanceStatusRepository;
+import com.cbo.CBO_NFOS_ICMS.repositories.ProcurementRepository.ProcurementStatusRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.IFBRepository.IfbStatusRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.IFBRepository.ProductTypeRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.IFRRepository.CaseStatusRepository;
@@ -58,8 +60,9 @@ public class DatabaseSeeder {
     private CaseStatusRepository caseStatusRepository;
     private ActivityStatusRepository activityStatusRepository;
     private FinanceStatusRepository financeStatusRepository;
-   private TradeStatusRepository tradeStatusRepository;
-private ShareStatusRepository shareStatusRepository;
+    private ProcurementStatusRepository procurementStatusRepository;
+    private TradeStatusRepository tradeStatusRepository;
+    private ShareStatusRepository shareStatusRepository;
     private AllCategoryRepository allCategoryRepository;
     private FraudTypeRepository fraudTypeRepository;
     private SuspectedFraudsterProfessionRepository suspectedFraudsterProfessionRepository;
@@ -97,6 +100,7 @@ private ShareStatusRepository shareStatusRepository;
             CaseStatusRepository caseStatusRepository,
             ActivityStatusRepository activityStatusRepository,
             FinanceStatusRepository financeStatusRepository,
+            ProcurementStatusRepository procurementStatusRepository,
             ShareStatusRepository shareStatusRepository,
             AllCategoryRepository allCategoryRepository,
             TradeStatusRepository tradeStatusRepository,
@@ -126,6 +130,7 @@ private ShareStatusRepository shareStatusRepository;
         this.caseStatusRepository = caseStatusRepository;
         this.activityStatusRepository = activityStatusRepository;
         this.financeStatusRepository = financeStatusRepository;
+        this.procurementStatusRepository = procurementStatusRepository;
         this.shareStatusRepository = shareStatusRepository;
         this.allCategoryRepository = allCategoryRepository;
         this.fraudTypeRepository = fraudTypeRepository;
@@ -205,6 +210,10 @@ private ShareStatusRepository shareStatusRepository;
         seedFinanciesStatusTable("Open");
         seedFinanciesStatusTable("Closed");
 
+        seedProcurementStatusTable("Open");
+        seedProcurementStatusTable("Closed");
+
+
         seedTradeStatusTable("Open");
         seedTradeStatusTable("Closed");
 
@@ -247,6 +256,17 @@ private ShareStatusRepository shareStatusRepository;
         seedAllCategoriesTable("Off Balance Sheet", findSubModuleByCode("IFR"));
         seedAllCategoriesTable("Cheques/DDs", findSubModuleByCode("IFR"));
         seedAllCategoriesTable("Other", findSubModuleByCode("IFR"));
+
+
+        seedAllCategoriesTable("Procurement Plan and Requisition", findSubModuleByCode("PFPIC"));
+        seedAllCategoriesTable("Preparation of Bidding Document", findSubModuleByCode("PFPIC"));
+        seedAllCategoriesTable("Opening of Bids", findSubModuleByCode("PFPIC"));
+        seedAllCategoriesTable("Evaluation of Bids", findSubModuleByCode("PFPIC"));
+        seedAllCategoriesTable("Approval or Rejection of Bid", findSubModuleByCode("PFPIC"));
+        seedAllCategoriesTable("Contract Management", findSubModuleByCode("IFR"));
+        seedAllCategoriesTable("Performance Security/Performance Bond Guarantee", findSubModuleByCode("PFPIC"));
+        seedAllCategoriesTable("Advance Payment", findSubModuleByCode("PFPIC"));
+        seedAllCategoriesTable("Full Payment of Purchase", findSubModuleByCode("PFPIC"));
 
 
         seedAllCategoriesTable("Cash Management", findSubModuleByCode("DACGM")); //2
@@ -375,8 +395,30 @@ private ShareStatusRepository shareStatusRepository;
         seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Loan Follow-Up"));
 
 
-        //FPIC
 
+        //PFPIC
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Procurement Plan and Requisition"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Procurement Plan and Requisition"));
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Preparation of Bidding Document"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Preparation of Bidding Document"));
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Opening of Bids"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Opening of Bids"));
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Evaluation of Bids"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Evaluation of Bids"));
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Approval or Rejection of Bid"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Approval or Rejection of Bid"));
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Contract Management"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Contract Management"));
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Performance Security/Performance Bond Guarantee"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Performance Security/Performance Bond Guarantee"));
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Advance Payment"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Advance Payment"));
+        seedAllSubCategoriesTable("Financial", findAllCategoryByName("Full Payment of Purchase"));
+        seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Full Payment of Purchase"));
+
+
+
+        //FPIC
         seedAllSubCategoriesTable("Financial", findAllCategoryByName("Liquidity Management"));
         seedAllSubCategoriesTable("Non-Financial", findAllCategoryByName("Liquidity Management"));
 
@@ -833,6 +875,130 @@ private ShareStatusRepository shareStatusRepository;
         seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Other"));
         seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Other"));
 
+
+        //PFPIC
+        seedAllIrregularitiesTable("Organs of the  bank have  not submited their schedule of requirements with their specifications to procurement", findAllSubCategoryByNameAndCategoryName("Financial", "Procurement Plan and Requisition"));
+        seedAllIrregularitiesTable("Organs of the  bank have  not submited their schedule of requirements with their specifications to procurement", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Procurement Plan and Requisition"));
+        seedAllIrregularitiesTable("There is no justification for the request out of the budget line and  special request is not approved by the President or his delegate", findAllSubCategoryByNameAndCategoryName("Financial", "Procurement Plan and Requisition"));
+        seedAllIrregularitiesTable("There is no justification for the request out of the budget line and  special request is not approved by the President or his delegate", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Procurement Plan and Requisition"));
+        seedAllIrregularitiesTable("Technical specifications does not clearly describe the user organs requirements ( respect to quality, performance/functionality, and safety considering standardization at company leve)", findAllSubCategoryByNameAndCategoryName("Financial", "Procurement Plan and Requisition"));
+        seedAllIrregularitiesTable("Technical specifications does not clearly describe the user organs requirements ( respect to quality, performance/functionality, and safety considering standardization at company leve)", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Procurement Plan and Requisition"));
+        seedAllIrregularitiesTable("Absence of clear technical specifications of the goods/services, terms of reference, or statements of works describing the nature and functionality of the items", findAllSubCategoryByNameAndCategoryName("Financial", "Procurement Plan and Requisition"));
+        seedAllIrregularitiesTable("Absence of clear technical specifications of the goods/services, terms of reference, or statements of works describing the nature and functionality of the items", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Procurement Plan and Requisition"));
+        seedAllIrregularitiesTable("Requirements are not clearly state the mandatory  and weighted", findAllSubCategoryByNameAndCategoryName("Financial", "Procurement Plan and Requisition"));
+        seedAllIrregularitiesTable("Requirements are not clearly state the mandatory  and weighted", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Procurement Plan and Requisition"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Procurement Plan and Requisition"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Procurement Plan and Requisition"));
+        seedAllIrregularitiesTable("The bid document does not provide sufficient information about the bid and the document was not made available to all interested bidders", findAllSubCategoryByNameAndCategoryName("Financial", "Preparation of Bidding Document"));
+        seedAllIrregularitiesTable("The bid document does not provide sufficient information about the bid and the document was not made available to all interested bidders", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Preparation of Bidding Document"));
+        seedAllIrregularitiesTable("The standard bidding document has not been prepared by the procurement work unit", findAllSubCategoryByNameAndCategoryName("Financial", "Preparation of Bidding Document"));
+        seedAllIrregularitiesTable("The standard bidding document has not been prepared by the procurement work unit", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Preparation of Bidding Document"));
+        seedAllIrregularitiesTable("The bidders have been participated in the bidding without fulfilling eligibility criteria", findAllSubCategoryByNameAndCategoryName("Financial", "Preparation of Bidding Document"));
+        seedAllIrregularitiesTable("The bidders have been participated in the bidding without fulfilling eligibility criteria", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Preparation of Bidding Document"));
+        seedAllIrregularitiesTable("Bid received after the tender box has been closed", findAllSubCategoryByNameAndCategoryName("Financial", "Preparation of Bidding Document"));
+        seedAllIrregularitiesTable("Bid received after the tender box has been closed", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Preparation of Bidding Document"));
+        seedAllIrregularitiesTable("Wrong content of instructions in the bid document", findAllSubCategoryByNameAndCategoryName("Financial", "Preparation of Bidding Document"));
+        seedAllIrregularitiesTable("Wrong content of instructions in the bid document", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Preparation of Bidding Document"));
+        seedAllIrregularitiesTable("Wrong weights allocated for the technical, non-technical and financial aspects of bid", findAllSubCategoryByNameAndCategoryName("Financial", "Preparation of Bidding Document"));
+        seedAllIrregularitiesTable("Wrong weights allocated for the technical, non-technical and financial aspects of bid", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Preparation of Bidding Document"));
+        seedAllIrregularitiesTable("Wrong amount, validity period and mode of bid bond and performance security", findAllSubCategoryByNameAndCategoryName("Financial", "Preparation of Bidding Document"));
+        seedAllIrregularitiesTable("Wrong amount, validity period and mode of bid bond and performance security", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Preparation of Bidding Document"));
+        seedAllIrregularitiesTable("Grievance of bidders not filed and handled appropriately", findAllSubCategoryByNameAndCategoryName("Financial", "Preparation of Bidding Document"));
+        seedAllIrregularitiesTable("Grievance of bidders not filed and handled appropriately", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Preparation of Bidding Document"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Preparation of Bidding Document"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Preparation of Bidding Document"));
+        seedAllIrregularitiesTable("Black-listed bidders win the bid in contrary to Procurement Procedure", findAllSubCategoryByNameAndCategoryName("Financial", "Opening of Bids"));
+        seedAllIrregularitiesTable("Black-listed bidders win the bid in contrary to Procurement Procedure", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Opening of Bids"));
+        seedAllIrregularitiesTable("The procurement committee opened the bid documents in the absence of the bidders or their authorized representatives", findAllSubCategoryByNameAndCategoryName("Financial", "Opening of Bids"));
+        seedAllIrregularitiesTable("The procurement committee opened the bid documents in the absence of the bidders or their authorized representatives", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Opening of Bids"));
+        seedAllIrregularitiesTable("The opening of bids are not transparent and invalid and unqualified offers are received and evaluated", findAllSubCategoryByNameAndCategoryName("Financial", "Opening of Bids"));
+        seedAllIrregularitiesTable("The opening of bids are not transparent and invalid and unqualified offers are received and evaluated", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Opening of Bids"));
+        seedAllIrregularitiesTable("Unauthorized representatives are participated in the bid opening ceremony", findAllSubCategoryByNameAndCategoryName("Financial", "Opening of Bids"));
+        seedAllIrregularitiesTable("Unauthorized representatives are participated in the bid opening ceremony", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Opening of Bids"));
+        seedAllIrregularitiesTable("Bidders or their representatives who attended the bid opening ceremony are not registered and signed on the attendance sheet", findAllSubCategoryByNameAndCategoryName("Financial", "Opening of Bids"));
+        seedAllIrregularitiesTable("Bidders or their representatives who attended the bid opening ceremony are not registered and signed on the attendance sheet", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Opening of Bids"));
+        seedAllIrregularitiesTable("Bidders who are qualified for the technical evaluation has not been notified the opening date, place, and time of the financial proposal", findAllSubCategoryByNameAndCategoryName("Financial", "Opening of Bids"));
+        seedAllIrregularitiesTable("Bidders who are qualified for the technical evaluation has not been notified the opening date, place, and time of the financial proposal", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Opening of Bids"));
+        seedAllIrregularitiesTable("Bid security of unqualified bidders has not been returned immediately", findAllSubCategoryByNameAndCategoryName("Financial", "Opening of Bids"));
+        seedAllIrregularitiesTable("Bid security of unqualified bidders has not been returned immediately", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Opening of Bids"));
+        seedAllIrregularitiesTable("Procurement Committee has not undertaken preliminary examination of bid proposal", findAllSubCategoryByNameAndCategoryName("Financial", "Opening of Bids"));
+        seedAllIrregularitiesTable("Procurement Committee has not undertaken preliminary examination of bid proposal", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Opening of Bids"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Opening of Bids"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Opening of Bids"));
+        seedAllIrregularitiesTable("Evaluation of the bid was not undertaken by an evaluation team/ad-hoc committee", findAllSubCategoryByNameAndCategoryName("Financial", "Evaluation of Bids"));
+        seedAllIrregularitiesTable("Evaluation of the bid was not undertaken by an evaluation team/ad-hoc committee", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Evaluation of Bids"));
+        seedAllIrregularitiesTable("Bidders are  allowed to change the quotations/offers after the closing", findAllSubCategoryByNameAndCategoryName("Financial", "Evaluation of Bids"));
+        seedAllIrregularitiesTable("Bidders are  allowed to change the quotations/offers after the closing", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Evaluation of Bids"));
+        seedAllIrregularitiesTable("Bidder’s confidential information was disclosed to another bidder", findAllSubCategoryByNameAndCategoryName("Financial", "Evaluation of Bids"));
+        seedAllIrregularitiesTable("Bidder’s confidential information was disclosed to another bidder", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Evaluation of Bids"));
+        seedAllIrregularitiesTable("The evaluation criteria have not been set in relation to the standard technical specifications and nontechnical aspects", findAllSubCategoryByNameAndCategoryName("Financial", "Evaluation of Bids"));
+        seedAllIrregularitiesTable("The evaluation criteria have not been set in relation to the standard technical specifications and nontechnical aspects", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Evaluation of Bids"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Evaluation of Bids"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Evaluation of Bids"));
+        seedAllIrregularitiesTable("The appropriate procurement committee has not approved procurements", findAllSubCategoryByNameAndCategoryName("Financial", "Approval or Rejection of Bid"));
+        seedAllIrregularitiesTable("The appropriate procurement committee has not approved procurements", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Approval or Rejection of Bid"));
+        seedAllIrregularitiesTable("The bid have not adhered to the instructions issued on the tender documents and are not eligible to compete", findAllSubCategoryByNameAndCategoryName("Financial", "Approval or Rejection of Bid"));
+        seedAllIrregularitiesTable("The bid have not adhered to the instructions issued on the tender documents and are not eligible to compete", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Approval or Rejection of Bid"));
+        seedAllIrregularitiesTable("Suppliers that couldn’t discharge their obligation awarded/win the bid", findAllSubCategoryByNameAndCategoryName("Financial", "Approval or Rejection of Bid"));
+        seedAllIrregularitiesTable("Suppliers that couldn’t discharge their obligation awarded/win the bid", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Approval or Rejection of Bid"));
+        seedAllIrregularitiesTable("Absence of specialist confirmation for technical and special type of procurement such as ‘’IT’’ related assets and promotional materials", findAllSubCategoryByNameAndCategoryName("Financial", "Approval or Rejection of Bid"));
+        seedAllIrregularitiesTable("Absence of specialist confirmation for technical and special type of procurement such as ‘’IT’’ related assets and promotional materials", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Approval or Rejection of Bid"));
+        seedAllIrregularitiesTable("Market assessment was not conducted", findAllSubCategoryByNameAndCategoryName("Financial", "Approval or Rejection of Bid"));
+        seedAllIrregularitiesTable("Market assessment was not conducted", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Approval or Rejection of Bid"));
+        seedAllIrregularitiesTable("Purchase award letters/purchase orders to bid winner supplier/s issued against approved procurements", findAllSubCategoryByNameAndCategoryName("Financial", "Approval or Rejection of Bid"));
+        seedAllIrregularitiesTable("Purchase award letters/purchase orders to bid winner supplier/s issued against approved procurements", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Approval or Rejection of Bid"));
+        seedAllIrregularitiesTable("All necessary documents are not fulfilled for a procurement", findAllSubCategoryByNameAndCategoryName("Financial", "Approval or Rejection of Bid"));
+        seedAllIrregularitiesTable("All necessary documents are not fulfilled for a procurement", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Approval or Rejection of Bid"));
+        seedAllIrregularitiesTable("Security and confidentiality of all procurement activities are not ensured", findAllSubCategoryByNameAndCategoryName("Financial", "Approval or Rejection of Bid"));
+        seedAllIrregularitiesTable("Security and confidentiality of all procurement activities are not ensured", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Approval or Rejection of Bid"));
+        seedAllIrregularitiesTable("Archives of all procurement documents and minutes are not kept under custody and accessible to unauthorized personnel", findAllSubCategoryByNameAndCategoryName("Financial", "Approval or Rejection of Bid"));
+        seedAllIrregularitiesTable("Archives of all procurement documents and minutes are not kept under custody and accessible to unauthorized personnel", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Approval or Rejection of Bid"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Approval or Rejection of Bid"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Approval or Rejection of Bid"));
+        seedAllIrregularitiesTable("Contracts are not duly signed authorized person (both side)", findAllSubCategoryByNameAndCategoryName("Financial", "Contract Management"));
+        seedAllIrregularitiesTable("Contracts are not duly signed authorized person (both side)", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Contract Management"));
+        seedAllIrregularitiesTable("Unapproved procurement /service order has been recognized and payment is effected", findAllSubCategoryByNameAndCategoryName("Financial", "Contract Management"));
+        seedAllIrregularitiesTable("Unapproved procurement /service order has been recognized and payment is effected", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Contract Management"));
+        seedAllIrregularitiesTable("Contracts signed with vendors were not reviewed by legal or contract management team", findAllSubCategoryByNameAndCategoryName("Financial", "Contract Management"));
+        seedAllIrregularitiesTable("Contracts signed with vendors were not reviewed by legal or contract management team", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Contract Management"));
+        seedAllIrregularitiesTable("Contractual obligations are not clearly defined", findAllSubCategoryByNameAndCategoryName("Financial", "Contract Management"));
+        seedAllIrregularitiesTable("Contractual obligations are not clearly defined", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Contract Management"));
+        seedAllIrregularitiesTable("Vendor contracts are not reviewed annually or when significant changes occur", findAllSubCategoryByNameAndCategoryName("Financial", "Contract Management"));
+        seedAllIrregularitiesTable("Vendor contracts are not reviewed annually or when significant changes occur", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Contract Management"));
+        seedAllIrregularitiesTable("Contract is not issued in sufficient original copies", findAllSubCategoryByNameAndCategoryName("Financial", "Contract Management"));
+        seedAllIrregularitiesTable("Contract is not issued in sufficient original copies", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Contract Management"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Contract Management"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Contract Management"));
+        seedAllIrregularitiesTable("Procurement contract is not accompanied by valid CPO or Bank Guarantee", findAllSubCategoryByNameAndCategoryName("Financial", "Performance Security/Performance Bond Guarantee"));
+        seedAllIrregularitiesTable("Procurement contract is not accompanied by valid CPO or Bank Guarantee", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Performance Security/Performance Bond Guarantee"));
+        seedAllIrregularitiesTable("Supplier not notified regarding the renewal of performance security", findAllSubCategoryByNameAndCategoryName("Financial", "Performance Security/Performance Bond Guarantee"));
+        seedAllIrregularitiesTable("Supplier not notified regarding the renewal of performance security", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Performance Security/Performance Bond Guarantee"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Performance Security/Performance Bond Guarantee"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Performance Security/Performance Bond Guarantee"));
+        seedAllIrregularitiesTable("Advance payment has not been in accordance with the contact signed by the two parties", findAllSubCategoryByNameAndCategoryName("Financial", "Advance Payment"));
+        seedAllIrregularitiesTable("Advance payment has not been in accordance with the contact signed by the two parties", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Advance Payment"));
+        seedAllIrregularitiesTable("The amount exceed 50% of the total contract value without the approval of the President", findAllSubCategoryByNameAndCategoryName("Financial", "Advance Payment"));
+        seedAllIrregularitiesTable("The amount exceed 50% of the total contract value without the approval of the President", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Advance Payment"));
+        seedAllIrregularitiesTable("Procurement team not conducted regular follow-up on the progress and performance of the contract", findAllSubCategoryByNameAndCategoryName("Financial", "Advance Payment"));
+        seedAllIrregularitiesTable("Procurement team not conducted regular follow-up on the progress and performance of the contract", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Advance Payment"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Advance Payment"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Advance Payment"));
+        seedAllIrregularitiesTable("Procurement requisition, bidding documents or pro-forma invoices are not documented", findAllSubCategoryByNameAndCategoryName("Financial", "Full Payment of Purchase"));
+        seedAllIrregularitiesTable("Procurement requisition, bidding documents or pro-forma invoices are not documented", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Full Payment of Purchase"));
+        seedAllIrregularitiesTable("Procurement Committee minutes or other authorization letters are not documented", findAllSubCategoryByNameAndCategoryName("Financial", "Full Payment of Purchase"));
+        seedAllIrregularitiesTable("Procurement Committee minutes or other authorization letters are not documented", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Full Payment of Purchase"));
+        seedAllIrregularitiesTable("Procurement agreement/purchase order is not documented", findAllSubCategoryByNameAndCategoryName("Financial", "Full Payment of Purchase"));
+        seedAllIrregularitiesTable("Procurement agreement/purchase order is not documented", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Full Payment of Purchase"));
+        seedAllIrregularitiesTable("Goods receiving voucher is not documented", findAllSubCategoryByNameAndCategoryName("Financial", "Full Payment of Purchase"));
+        seedAllIrregularitiesTable("Goods receiving voucher is not documented", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Full Payment of Purchase"));
+        seedAllIrregularitiesTable("Goods inspection report is not documented", findAllSubCategoryByNameAndCategoryName("Financial", "Full Payment of Purchase"));
+        seedAllIrregularitiesTable("Goods inspection report is not documented", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Full Payment of Purchase"));
+        seedAllIrregularitiesTable("Payment request /credit sales invoice of the vender; and Other pertinent documents are not documented", findAllSubCategoryByNameAndCategoryName("Financial", "Full Payment of Purchase"));
+        seedAllIrregularitiesTable("Payment request /credit sales invoice of the vender; and Other pertinent documents are not documented", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Full Payment of Purchase"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Financial", "Full Payment of Purchase"));
+        seedAllIrregularitiesTable("Other", findAllSubCategoryByNameAndCategoryName("Non-Financial", "Full Payment of Purchase"));
+
+
 //TSIPM Irregularity
         seedAllIrregularitiesTable("The customer does not have NBE Import Account number", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
         seedAllIrregularitiesTable("The foreign exchange request is not approved", findAllSubCategoryByNameAndCategoryName("LC", "Import"));
@@ -1267,6 +1433,20 @@ private ShareStatusRepository shareStatusRepository;
             //logger.info("Activities Status Seeding Not Required");
         }
     }
+
+    @Transactional
+    public void seedProcurementStatusTable(String name) {
+
+        String sql = "SELECT name FROM procurement_status procurement WHERE procurement.name = ? LIMIT 1";
+        List<ProcurementStatus> as = jdbcTemplate.query(sql, new Object[]{name}, (resultSet, rowNum) -> null);
+        if (as == null || as.size() == 0) {
+            ProcurementStatus procurementStatus = new ProcurementStatus(name);
+            procurementStatusRepository.save(procurementStatus);
+        } else {
+            //logger.info("Activities Status Seeding Not Required");
+        }
+    }
+
     @Transactional
     public void seedTradeStatusTable(String name) {
         System.out.println("seeding trade status");
