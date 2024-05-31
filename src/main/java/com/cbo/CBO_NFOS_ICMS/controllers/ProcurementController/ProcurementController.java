@@ -28,7 +28,7 @@ public class ProcurementController {
     }
 
     @GetMapping("/getAll")
-    @PreAuthorize("hasAnyRole('ICMS_PROCUREMENT_OWNER')")
+    @PreAuthorize("hasAnyRole('ICMS_PROCUREMENT_OWNER', 'ICMS_ADMIN')")
     public ResponseEntity<List<Procurement>> getProcurement() {
         List<Procurement> Procurement = procurementService.findAllProcurement();
         return new ResponseEntity<>(Procurement, HttpStatus.OK);
@@ -144,7 +144,7 @@ public class ProcurementController {
     }
 
     @GetMapping("/findBySubProcessId/{id}")
-    @PreAuthorize("hasAnyRole('ICMS_PROCUREMENT_IC')")
+    @PreAuthorize("hasAnyRole('ICMS_PROCUREMENT_IC', 'ICMS_PROCUREMENT_OWNER')")
     public ResponseEntity<List<Procurement>> getAllFinanceInSpecificSubProcess(@PathVariable("id") Long subProcessId) {
         List<Procurement> Procurement;
         Procurement = procurementService.findAllProcurementInSpecificSubProcess(subProcessId);
