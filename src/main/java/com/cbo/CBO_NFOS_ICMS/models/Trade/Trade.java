@@ -40,6 +40,8 @@ public class Trade {
     @Column(length = 64)
     private String referenceNumber;
     @Column(length = 64)
+    private String amountInvolved;
+    @Column(length = 64)
     private String customerName;
 
     @ManyToOne
