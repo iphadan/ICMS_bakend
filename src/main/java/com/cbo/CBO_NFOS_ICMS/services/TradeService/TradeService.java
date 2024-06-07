@@ -8,6 +8,7 @@ import com.cbo.CBO_NFOS_ICMS.repositories.FinanceRepository.FinanceRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.TradeRepository.TradeRepository;
 import com.cbo.CBO_NFOS_ICMS.services.UserAndEmployeeService.BranchService;
 import com.cbo.CBO_NFOS_ICMS.services.UserAndEmployeeService.SubProcessService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
@@ -15,7 +16,6 @@ import java.util.List;
 import java.util.Optional;
 @Service
 public class TradeService {
-
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("MM/dd/yyyy");
 private final TradeRepository tradeRepository;
     private final SubProcessService subProcessService;
@@ -47,7 +47,16 @@ private final TradeRepository tradeRepository;
         }
     }
 
-
+public Long getLastId(){
+    List<Trade> trades = tradeRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+    Optional<Trade> lastTrade = trades.stream().findFirst();
+    if(lastTrade.isPresent()){
+        return lastTrade.get().getId();
+    }
+    else {
+        return 0L;
+    }
+    }
 
     public Trade findTradeById(Long id) {
         return tradeRepository.findById(id)

@@ -77,10 +77,17 @@ public class FireExtinguisherController {
 
     }
 
+//    @GetMapping("/getSize")
+//    @PreAuthorize("hasAnyRole('ICMS_DISTRICT_IC','ICMS_BRANCH_IC', 'ICMS_PROVISION','ICMS_ADMIN','ICMS_DISTRICT_DIRECTOR')")
+//    public int getFireExtinguisherSize() {
+//        return fireExtinguisherService.findFireExtinguisherSize();
+//    }
+
     @GetMapping("/getSize")
     @PreAuthorize("hasAnyRole('ICMS_DISTRICT_IC','ICMS_BRANCH_IC', 'ICMS_PROVISION','ICMS_ADMIN','ICMS_DISTRICT_DIRECTOR')")
     public int getFireExtinguisherSize() {
-        return fireExtinguisherService.findFireExtinguisherSize();
+
+        return Math.toIntExact(fireExtinguisherService.getLastId());
     }
 
 

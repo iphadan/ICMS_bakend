@@ -5,10 +5,12 @@ import com.cbo.CBO_NFOS_ICMS.exception.UserNotFoundException;
 import com.cbo.CBO_NFOS_ICMS.models.CIPM.Status;
 import com.cbo.CBO_NFOS_ICMS.models.Finance.Finance;
 import com.cbo.CBO_NFOS_ICMS.models.FireExtinguisher.FireExtinguisher;
+import com.cbo.CBO_NFOS_ICMS.models.Trade.Trade;
 import com.cbo.CBO_NFOS_ICMS.repositories.FinanceRepository.FinanceRepository;
 import com.cbo.CBO_NFOS_ICMS.repositories.FireExtinguisherRepository.FireExtinguisherRepository;
 import com.cbo.CBO_NFOS_ICMS.services.UserAndEmployeeService.BranchService;
 import com.cbo.CBO_NFOS_ICMS.services.UserAndEmployeeService.SubProcessService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
@@ -30,7 +32,16 @@ public class FireExtinguisherService {
         this.organizationalUnitService = organizationalUnitService;
         this.fireExtinguisherRepository = fireExtinguisherRepository;
     }
-
+    public Long getLastId(){
+        List<FireExtinguisher> fireExtinguishers = fireExtinguisherRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        Optional<FireExtinguisher> lastFireExtinguisher = fireExtinguishers.stream().findFirst();
+        if(lastFireExtinguisher.isPresent()){
+            return lastFireExtinguisher.get().getId();
+        }
+        else {
+            return 0L;
+        }
+    }
     public FireExtinguisher addFireExtinguisher(FireExtinguisher fireExtinguisher) {
         return fireExtinguisherRepository.save(fireExtinguisher);
     }

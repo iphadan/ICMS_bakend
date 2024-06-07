@@ -85,12 +85,16 @@ public class FinanceController {
 
     }
 
+//    @GetMapping("/getSize")
+//    public Long getFinanceSize() {
+//        return financeService.findFinanceSize();
+//    }
+
     @GetMapping("/getSize")
-    public Long getFinanceSize() {
-        return financeService.findFinanceSize();
+    @PreAuthorize("hasAnyRole('ICMS_TRADE_IC')")
+    public int getTradeLastId(){
+        return Math.toIntExact(financeService.getLastId());
     }
-
-
 
 
     @DeleteMapping("/delete/{id}")

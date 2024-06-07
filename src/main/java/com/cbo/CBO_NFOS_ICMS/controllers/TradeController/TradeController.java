@@ -87,10 +87,18 @@ public class TradeController {
 
     }
 //
+//    @GetMapping("/getSize")
+//    @PreAuthorize("hasAnyRole('ICMS_TRADE_IC')")
+//    public int getTradeSize() {
+//        System.out.println(tradeService.findTradeSize());
+//        return tradeService.findTradeSize();
+//
+//    }
+
     @GetMapping("/getSize")
     @PreAuthorize("hasAnyRole('ICMS_TRADE_IC')")
-    public int getTradeSize() {
-        return tradeService.findTradeSize();
+    public int getTradeLastId(){
+        return Math.toIntExact(tradeService.getLastId());
     }
 //
 //

@@ -4,9 +4,11 @@ import com.cbo.CBO_NFOS_ICMS.exception.ResourceNotFoundException;
 import com.cbo.CBO_NFOS_ICMS.exception.UserNotFoundException;
 import com.cbo.CBO_NFOS_ICMS.models.DACGM.DailyActivityGapControl;
 import com.cbo.CBO_NFOS_ICMS.models.Finance.Finance;
+import com.cbo.CBO_NFOS_ICMS.models.Trade.Trade;
 import com.cbo.CBO_NFOS_ICMS.repositories.FinanceRepository.FinanceRepository;
 import com.cbo.CBO_NFOS_ICMS.services.UserAndEmployeeService.BranchService;
 import com.cbo.CBO_NFOS_ICMS.services.UserAndEmployeeService.SubProcessService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.format.DateTimeFormatter;
@@ -26,6 +28,16 @@ public class FinanceService {
         this.subProcessService = subProcessService;
         this.organizationalUnitService = organizationalUnitService;
         this.financeRepository = financeRepository;
+    }
+    public Long getLastId(){
+        List<Finance> finances = financeRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        Optional<Finance> lastTrade = finances.stream().findFirst();
+        if(lastTrade.isPresent()){
+            return lastTrade.get().getId();
+        }
+        else {
+            return 0L;
+        }
     }
 
     public Finance addIFB(Finance finance) {
